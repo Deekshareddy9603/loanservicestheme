@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Stackly — Loan Services & Financial Lending Admin</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+        --primary-gold: #FFD700;
+        --accent-gold: #D4AF37;
+        --gold-glow: rgba(255, 215, 0, 0.22);
+        --deep-obsidian: #070b14;
+        --surface-card: rgba(15, 23, 42, 0.94);
+        --surface-card-alt: rgba(30, 41, 59, 0.88);
+        --charcoal-text: #ffffff;
+        --muted-gray: #94a3b8;
+        --border-gold: rgba(212, 175, 55, 0.28);
+        --sidebar-width: 300px;
+        --font-body: 'Plus Jakarta Sans', sans-serif;
+        --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.6);
+        --shadow-hover: 0 25px 50px rgba(212, 175, 55, 0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        background: var(--deep-obsidian);
+        color: var(--charcoal-text);
+        font-family: var(--font-body);
+        min-height: 100vh;
+        display: flex;
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    body::before {
+        content: '';
+        position: absolute;
+        width: 750px;
+        height: 750px;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.05) 0%, rgba(7, 11, 20, 0) 70%);
+        top: 5%;
+        left: 25%;
+        z-index: 1;
+        pointer-events: none;
+        animation: ambientGlow 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes ambientGlow {
+        0% { transform: scale(1) translate(0, 0); opacity: 0.4; }
+        100% { transform: scale(1.25) translate(40px, -30px); opacity: 0.85; }
+    }
+
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(7, 11, 20, 0.85);
+        z-index: 99;
+        backdrop-filter: blur(6px);
+    }
+    .sidebar-overlay.mobile-open { display: block; }
+
+    .constant-sidebar {
+        width: var(--sidebar-width);
+        background: var(--surface-card);
+        border-right: 1px solid var(--border-gold);
+        height: 100vh;
+        position: fixed;
+        top: 0; left: 0;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        transition: var(--transition);
+        box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(20px);
+    }
+
+    .sidebar-brand {
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid var(--border-gold);
+        background: #04060b;
+    }
+
+    .sidebar-brand img { height: 50px; width: auto; object-fit: contain; }
+
+    .sidebar-menu-scroller {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1.5rem 1rem;
+    }
+
+    .sidebar-menu-scroller::-webkit-scrollbar { width: 4px; }
+    .sidebar-menu-scroller::-webkit-scrollbar-thumb {
+        background: var(--border-gold);
+        border-radius: 4px;
+    }
+
+    .sidebar-group-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--primary-gold);
+        margin: 1.4rem 0 0.6rem 0.8rem;
+        font-weight: 800;
+    }
+
+    .menu-section-node {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        padding: 0.85rem 1rem;
+        color: var(--muted-gray);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: var(--transition);
+        margin-bottom: 0.35rem;
+        font-size: 0.88rem;
+        font-weight: 600;
+    }
+
+    .menu-section-node i {
+        font-size: 0.95rem;
+        width: 20px;
+        text-align: center;
+        transition: var(--transition);
+    }
+
+    .menu-section-node:hover {
+        background: rgba(255, 215, 0, 0.08);
+        color: var(--charcoal-text);
+        transform: translateX(4px);
+    }
+
+    .menu-section-node:hover i { color: var(--primary-gold); }
+
+    .menu-section-node.active-section {
+        background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+        color: #070b14;
+        box-shadow: 0 4px 20px var(--gold-glow);
+        font-weight: 800;
+    }
+
+    .menu-section-node.active-section i { color: #070b14; }
+
+    .sidebar-footer {
+        padding: 1.2rem 1.5rem;
+        border-top: 1px solid var(--border-gold);
+        background: var(--surface-card);
+    }
+
+    .btn-system-kill {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        width: 100%;
+        padding: 0.75rem;
+        background: var(--surface-card-alt);
+        border: 1px solid var(--border-gold);
+        color: var(--charcoal-text);
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 700;
+        transition: var(--transition);
+    }
+
+    .btn-system-kill:hover {
+        background: #ef4444;
+        color: #ffffff;
+        border-color: #ef4444;
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Workspace Canvas Layout */
+    .workspace-canvas {
+        margin-left: var(--sidebar-width);
+        flex: 1;
+        padding: 2.2rem;
+        position: relative;
+        z-index: 10;
+        min-height: 100vh;
+        width: calc(100% - var(--sidebar-width));
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Redesigned Luxury Header */
+    .matrix-action-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--surface-card);
+        border: 1px solid var(--border-gold);
+        border-radius: 20px;
+        padding: 1.1rem 2rem;
+        margin-bottom: 2.2rem;
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(20px);
+        gap: 1.5rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .left-control-cluster {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    .mobile-menu-trigger {
+        display: none;
+        background: transparent;
+        border: 1px solid var(--border-gold);
+        color: var(--primary-gold);
+        font-size: 1.2rem;
+        padding: 0.5rem 0.7rem;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .btn-matrix-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: rgba(255, 215, 0, 0.08);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        color: var(--charcoal-text);
+        padding: 0.65rem 1.25rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 700;
+        transition: var(--transition);
+        white-space: nowrap;
+    }
+
+    .btn-matrix-action:hover {
+        border-color: var(--primary-gold);
+        background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+        color: #070b14;
+        box-shadow: 0 0 20px var(--gold-glow);
+    }
+
+    /* Redesigned Identity Profile Cluster */
+    .identity-profile-cluster {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid var(--border-gold);
+        padding: 0.5rem 1rem 0.5rem 0.7rem;
+        border-radius: 14px;
+        min-width: 0;
+    }
+
+    .identity-avatar-badge {
+        width: 38px;
+        height: 38px;
+        background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+        color: #070b14;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 0.95rem;
+        flex-shrink: 0;
+        box-shadow: 0 0 12px var(--gold-glow);
+    }
+
+    .identity-meta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 0;
+    }
+
+    .identity-meta h4 {
+        color: var(--charcoal-text);
+        font-size: 0.92rem;
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 220px;
+    }
+
+    .identity-meta p {
+        color: var(--primary-gold);
+        font-size: 0.75rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 220px;
+    }
+
+    .content-panel {
+        display: none;
+        animation: fadeInPanel 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .content-panel.active-panel-frame { display: block; }
+
+    @keyframes fadeInPanel {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-headline {
+        font-size: 2.4rem;
+        color: var(--charcoal-text);
+        margin-bottom: 0.2rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        word-break: break-word;
+        line-height: 1.1;
+    }
+
+    .panel-headline span {
+        background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .panel-description-box {
+        color: var(--muted-gray);
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+        max-width: 850px;
+    }
+
+    .summary-quad-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+
+    .quad-card {
+        background: var(--surface-card);
+        border: 1px solid var(--border-gold);
+        border-radius: 20px;
+        padding: 1.8rem;
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(20px);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .quad-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 4px; height: 100%;
+        background: linear-gradient(to bottom, #FFD700, #D4AF37);
+    }
+
+    .quad-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+        border-color: var(--primary-gold);
+    }
+
+    .quad-card span {
+        display: block;
+        color: var(--muted-gray);
+        font-size: 0.78rem;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        font-weight: 700;
+    }
+
+    .quad-card h2 {
+        font-size: 2.2rem;
+        color: var(--charcoal-text);
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .quad-card h2 span { color: var(--primary-gold); }
+
+    .quad-sub-metric {
+        margin-top: 0.8rem;
+        font-size: 0.78rem;
+        color: var(--primary-gold);
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-weight: 700;
+    }
+
+    .dashboard-asymmetric-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+        gap: 2rem;
+        margin-bottom: 2rem;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .dashboard-triple-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.8rem;
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+
+    .dashboard-dual-equal {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+
+    .graph-display-card {
+        background: var(--surface-card);
+        border: 1px solid var(--border-gold);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-width: 0;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .graph-display-card h4, .right-module-panel h4 {
+        font-size: 1.3rem;
+        color: var(--charcoal-text);
+        margin-bottom: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        letter-spacing: -0.3px;
+        font-weight: 700;
+    }
+
+    .graph-display-card h4 i, .right-module-panel h4 i { color: var(--primary-gold); }
+
+    .chart-wrapper {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        min-height: 250px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+    }
+
+    .chart-wrapper.compact {
+        height: 220px;
+        min-height: 190px;
+    }
+
+    .right-module-panel {
+        background: var(--surface-card);
+        border: 1px solid var(--border-gold);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        min-width: 0;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .matrix-data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    .matrix-data-table th, .matrix-data-table td {
+        padding: 0.8rem;
+        text-align: left;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        word-break: break-word;
+    }
+
+    .matrix-data-table th {
+        color: var(--primary-gold);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        letter-spacing: 0.9px;
+    }
+
+    .matrix-data-table td { color: var(--charcoal-text); }
+    .matrix-data-table tr:hover td { background: rgba(255, 215, 0, 0.04); }
+
+    .status-pill {
+        display: inline-block;
+        padding: 0.2rem 0.6rem;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .status-pill.active { background: rgba(255, 215, 0, 0.12); color: var(--primary-gold); border: 1px solid rgba(255,215,0,0.3); }
+    .status-pill.pending { background: rgba(234, 179, 8, 0.15); color: #facc15; border: 1px solid rgba(234,179,8,0.3); }
+
+    .action-console-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .console-action-btn {
+        background: var(--surface-card-alt);
+        border: 1px solid var(--border-gold);
+        color: var(--charcoal-text);
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .console-action-btn:hover {
+        background: var(--primary-gold);
+        border-color: var(--primary-gold);
+        color: #070b14;
+        transform: translateY(-2px);
+    }
+
+    .console-action-btn.solid-gradient {
+        background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+        color: #070b14;
+        border: 1px solid var(--primary-gold);
+    }
+
+    .console-action-btn.solid-gradient:hover {
+        box-shadow: 0 0 20px var(--gold-glow);
+    }
+
+    .module-subtext {
+        color: var(--muted-gray);
+        font-size: 0.83rem;
+        line-height: 1.5;
+        margin-bottom: 1.2rem;
+    }
+
+    .section-action-toolbar {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-gold);
+    }
+
+    .btn-toolbar-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: var(--surface-card-alt);
+        border: 1px solid var(--border-gold);
+        color: var(--charcoal-text);
+        padding: 0.65rem 1.2rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 700;
+        transition: var(--transition);
+    }
+
+    .btn-toolbar-action:hover {
+        background: var(--primary-gold);
+        border-color: var(--primary-gold);
+        color: #070b14;
+        transform: translateY(-2px);
+    }
+
+    .btn-toolbar-action.gold-solid {
+        background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+        color: #070b14;
+        border: 1px solid var(--primary-gold);
+    }
+
+    .btn-toolbar-action.gold-solid:hover {
+        box-shadow: 0 0 20px var(--gold-glow);
+    }
+
+    @media(max-width: 1400px) {
+        .dashboard-triple-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media(max-width: 1200px) { 
+        .dashboard-asymmetric-grid, 
+        .dashboard-dual-equal,
+        .dashboard-triple-grid { 
+            grid-template-columns: minmax(0, 1fr); 
+        } 
+    }
+    @media(max-width: 992px) {
+        .constant-sidebar { transform: translateX(-100%); }
+        .constant-sidebar.mobile-open { transform: translateX(0); }
+        .workspace-canvas { 
+            margin-left: 0; 
+            padding: 1rem; 
+            width: 100%;
+            max-width: 100vw; 
+        }
+        .mobile-menu-trigger { display: inline-flex; }
+        .chart-wrapper { height: 260px; min-height: 220px; }
+        .chart-wrapper.compact { height: 200px; min-height: 170px; }
+        .panel-headline { font-size: 2rem; }
+        .matrix-action-header { padding: 0.8rem 1rem; gap: 0.8rem; }
+        .graph-display-card, .right-module-panel { padding: 1.2rem; }
+        .identity-meta h4 { font-size: 0.85rem; max-width: 150px; }
+        .identity-meta p { font-size: 0.7rem; max-width: 150px; }
+    }
+  </style>
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebarDrawer()"></div>
+
+       <!-- NAVIGATION SIDEBAR -->
+    <aside class="constant-sidebar" id="appSidebar">
+        <div class="sidebar-brand">
+            <a href="index.html">
+                <img src="./gold.webp" alt="Stackly Logo">
+            </a>
+        </div>
+
+        <div class="sidebar-menu-scroller">
+            <nav class="sidebar-menu-list">
+                <div class="sidebar-group-label">Lending Hub</div>
+                <div class="menu-section-node active-section" onclick="toggleActiveView('overview', this)"><i class="fa-solid fa-vault"></i><span>Lending Command Center</span></div>
+                <div class="menu-section-node" onclick="toggleActiveView('roster', this)"><i class="fa-solid fa-file-invoice-dollar"></i><span>Application Pipeline</span></div>
+                <div class="menu-section-node" onclick="toggleActiveView('shifts', this)"><i class="fa-solid fa-chart-pie"></i><span>Portfolio & Risk Analytics</span></div>
+
+                <div class="sidebar-group-label">Loan Operations</div>
+                <div class="menu-section-node" onclick="toggleActiveView('events', this)"><i class="fa-solid fa-money-bill-transfer"></i><span>Disbursement & Escrow</span></div>
+                <div class="menu-section-node" onclick="toggleActiveView('impact', this)"><i class="fa-solid fa-user-shield"></i><span>Borrower Verification</span></div>
+                <div class="menu-section-node" onclick="toggleActiveView('resources', this)"><i class="fa-solid fa-hand-holding-dollar"></i><span>Collection & Recovery</span></div>
+
+                <div class="sidebar-group-label">Administration</div>
+                <div class="menu-section-node" onclick="toggleActiveView('broadcast', this)"><i class="fa-solid fa-headset"></i><span>Support & Dispute Center</span></div>
+                <div class="menu-section-node" onclick="toggleActiveView('training', this)"><i class="fa-solid fa-file-shield"></i><span>Compliance & Audit</span></div>
+                <div class="menu-section-node" onclick="toggleActiveView('reports', this)"><i class="fa-solid fa-briefcase"></i><span>Loan Product Catalog</span></div>
+            </nav>
+        </div>
+
+         <div class="sidebar-footer">
+            <a href="index.html" onclick="flushStateStorage()" class="btn-system-kill">
+                <i class="fa-solid fa-power-off"></i><span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- CONTENT DISPLAY LAYER -->
+    <main class="workspace-canvas">
+        <header class="matrix-action-header">
+            <div class="left-control-cluster">
+                <button class="mobile-menu-trigger" onclick="openSidebarDrawer()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <a href="./404.html" class="btn-matrix-action"><i class="fa-solid fa-plus-circle"></i> New Loan Intake </a>
+            </div>
+            
+            <div class="identity-profile-cluster">
+                <div class="identity-avatar-badge">MD</div>
+                <div class="identity-meta">
+                    <h4 id="userProfileDisplayName">Managing Director</h4>
+                    <p id="userProfileDisplayEmail">executive.lending@stackly.com</p>
+                </div>
+            </div>
+        </header>
+
+         <!-- PANEL 1: LENDING COMMAND CENTER -->
+        <div id="view-overview" class="content-panel active-panel-frame">
+            <h2 class="panel-headline">Lending <span>Command Center</span></h2>
+            <div class="panel-description-box">
+                Real-time financial telemetry of active loan portfolios, disbursement velocity, non-performing asset (NPA) ratios, and liquidity reserves.
+            </div>
+
+            <div class="summary-quad-grid">
+                <div class="quad-card">
+                    <span>Active Borrowers</span>
+                    <h2>4,820</h2>
+                    <div class="quad-sub-metric"><i class="fa-solid fa-arrow-trend-up"></i> +142 approved today</div>
+                </div>
+                <div class="quad-card">
+                    <span>Active Portfolios</span>
+                    <h2>$48.5M</h2>
+                    <div class="quad-sub-metric"><i class="fa-solid fa-vault"></i> 99.8% capital security</div>
+                </div>
+                <div class="quad-card">
+                    <span>Disbursed Escrow</span>
+                    <h2>$12.8M</h2>
+                    <div class="quad-sub-metric"><i class="fa-solid fa-check-circle"></i> Fully collateralized</div>
+                </div>
+                <div class="quad-card">
+                    <span>Collection Rate</span>
+                    <h2>96.4<span>%</span></h2>
+                    <div class="quad-sub-metric"><i class="fa-solid fa-arrow-up"></i> +2.1% vs last month</div>
+                </div>
+            </div>
+
+            <div class="dashboard-triple-grid">
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-chart-line"></i> Disbursement Velocity Wave</h4>
+                    <div class="chart-wrapper compact"><canvas id="volOverviewAreaChart"></canvas></div>
+                </div>
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-chart-pie"></i> Loan Product Breakdown</h4>
+                    <div class="chart-wrapper compact"><canvas id="overviewFunnelDonut"></canvas></div>
+                </div>
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-chart-column"></i> Application Clearance Rate</h4>
+                    <div class="chart-wrapper compact"><canvas id="overviewBarThroughput"></canvas></div>
+                </div>
+            </div>
+
+            <div class="dashboard-asymmetric-grid">
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-wave-square"></i> Monthly Principal Repayments & Yield</h4>
+                    <div class="chart-wrapper"><canvas id="overviewMainWaveChart"></canvas></div>
+                    <div class="section-action-toolbar">
+                        <a href="./404.html" class="btn-toolbar-action gold-solid"><i class="fa-solid fa-file-circle-plus"></i> Initiate Loan Batch</a>
+                        <a href="./404.html" class="btn-toolbar-action"><i class="fa-solid fa-download"></i> Export Financial Ledger</a>
+                    </div>
+                </div>
+
+                <div class="right-module-panel">
+                    <div>
+                        <h4><i class="fa-solid fa-building-columns"></i> High-Value Lending Accounts</h4>
+                        <p class="module-subtext">Recently approved corporate and premium commercial accounts.</p>
+                        
+                        <table class="matrix-data-table">
+                            <thead>
+                                <tr>
+                                    <th>Loan ID</th>
+                                    <th>Borrower</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>LN-CORP-901</td>
+                                    <td>Vertex Logistics Ltd</td>
+                                    <td><span class="status-pill active">DISBURSED</span></td>
+                                </tr>
+                                <tr>
+                                    <td>LN-RET-442</td>
+                                    <td>Marcus Sterling</td>
+                                    <td><span class="status-pill active">ACTIVE</span></td>
+                                </tr>
+                                <tr>
+                                    <td>LN-EQUIP-128</td>
+                                    <td>Apex BioHealth</td>
+                                    <td><span class="status-pill pending">UNDERWRITING</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="action-console-grid">
+                        <a href="./404.html" class="console-action-btn solid-gradient"><i class="fa-solid fa-rotate"></i> Sync Ledgers</a>
+                        <a href="./404.html" class="console-action-btn"><i class="fa-solid fa-terminal"></i> Risk Console</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 2: APPLICATION PIPELINE -->
+        <div id="view-roster" class="content-panel">
+            <h2 class="panel-headline">Application <span>Pipeline & Underwriting</span></h2>
+            <div class="panel-description-box">
+                Review inbound borrower applications, credit score evaluations, automated underwriting queues, and loan approvals.
+            </div>
+            <div class="summary-quad-grid">
+                <div class="quad-card"><span>Pending Review</span><h2>312 Files</h2></div>
+                <div class="quad-card"><span>Avg Credit Score</span><h2>742 FICO</h2></div>
+                <div class="quad-card"><span>Auto-Approval Rate</span><h2>68<span>%</span></h2></div>
+            </div>
+            <div class="dashboard-dual-equal">
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-chart-column"></i> Monthly Loan Applications</h4>
+                    <div class="chart-wrapper"><canvas id="rosterBarChart"></canvas></div>
+                </div>
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-chart-pie"></i> Risk Tier Distribution</h4>
+                    <div class="chart-wrapper"><canvas id="rosterPieChart"></canvas></div>
+                </div>
+            </div>
+            <div class="section-action-toolbar">
+                <a href="./404.html" class="btn-toolbar-action gold-solid"><i class="fa-solid fa-user-plus"></i> Process New Application</a>
+            </div>
+        </div>
+
+        <!-- PANEL 3: PORTFOLIO & RISK ANALYTICS -->
+        <div id="view-shifts" class="content-panel">
+            <h2 class="panel-headline">Portfolio & <span>Risk Analytics</span></h2>
+            <div class="panel-description-box">
+                Monitor capital exposure, debt-to-income (DTI) metrics, portfolio diversification, and default probability models.
+            </div>
+            <div class="summary-quad-grid">
+                <div class="quad-card"><span>Default Rate (NPA)</span><h2>1.2<span>%</span></h2></div>
+                <div class="quad-card"><span>Portfolio Health</span><h2>98.8<span>%</span></h2></div>
+            </div>
+            <div class="dashboard-dual-equal">
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-chart-line"></i> Portfolio Growth Trajectory</h4>
+                    <div class="chart-wrapper"><canvas id="shiftsLineChart"></canvas></div>
+                </div>
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-chart-line"></i> Liquidity Buffer Integrity</h4>
+                    <div class="chart-wrapper"><canvas id="shiftsSecondaryLine"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 4: DISBURSEMENT & ESCROW -->
+        <div id="view-events" class="content-panel">
+            <h2 class="panel-headline">Disbursement & <span>Escrow Management</span></h2>
+            <div class="panel-description-box">
+                Execute wire transfers, manage secure escrow accounts, and track tranche disbursements for approved loans.
+            </div>
+            <div class="summary-quad-grid">
+                <div class="quad-card"><span>Pending Wires</span><h2>18 Transfers</h2></div>
+                <div class="quad-card"><span>Escrow Vault</span><h2>$24.5M</h2></div>
+            </div>
+            <div class="dashboard-dual-equal">
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-money-bill-transfer"></i> Daily Disbursement Vol ($K)</h4>
+                    <div class="chart-wrapper"><canvas id="eventsBarChart"></canvas></div>
+                </div>
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-vault"></i> Vault Allocation Radar</h4>
+                    <div class="chart-wrapper"><canvas id="eventsRadarChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 5: BORROWER VERIFICATION -->
+        <div id="view-impact" class="content-panel">
+            <h2 class="panel-headline">Borrower Verification & <span>KYC Center</span></h2>
+            <div class="panel-description-box">
+                Identity verification, bank statement parsing, tax document validation, and anti-money laundering (AML) checks.
+            </div>
+            <div class="summary-quad-grid">
+                <div class="quad-card"><span>KYC Clearances</span><h2>99.4<span>%</span></h2></div>
+                <div class="quad-card"><span>Verification Time</span><h2>&lt; 15 mins</h2></div>
+            </div>
+            <div class="dashboard-dual-equal">
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-shield-halved"></i> Verification Audit Radar</h4>
+                    <div class="chart-wrapper"><canvas id="impactRadarChart"></canvas></div>
+                </div>
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-chart-bar"></i> Quarterly KYC Volumes</h4>
+                    <div class="chart-wrapper"><canvas id="impactBarChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 6: COLLECTION & RECOVERY -->
+        <div id="view-resources" class="content-panel">
+            <h2 class="panel-headline">Collection & <span>Recovery Operations</span></h2>
+            <div class="panel-description-box">
+                Automated payment reminders, delinquency tracking, restructuring agreements, and legal recovery workflows.
+            </div>
+            <div class="summary-quad-grid">
+                <div class="quad-card"><span>Overdue Accounts</span><h2>45 Active</h2></div>
+                <div class="quad-card"><span>Recovery Rate</span><h2>89.2<span>%</span></h2></div>
+            </div>
+            <div class="dashboard-dual-equal">
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-hand-holding-dollar"></i> Recovery Channel Performance</h4>
+                    <div class="chart-wrapper"><canvas id="resourcesPolarChart"></canvas></div>
+                </div>
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-clock-rotate-left"></i> Delinquency Aging (Days)</h4>
+                    <div class="chart-wrapper"><canvas id="resourcesBarChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+<!-- PANEL 7: SUPPORT & DISPUTE CENTER -->
+        <div id="view-broadcast" class="content-panel">
+            <h2 class="panel-headline">Support & <span>Dispute Resolution Desk</span></h2>
+            <div class="panel-description-box">
+                Borrower inquiries, repayment schedule dispute reviews, and hardship request processing.
+            </div>
+            <div class="summary-quad-grid">
+                <div class="quad-card"><span>Open Inquiries</span><h2>14 Pending</h2></div>
+                <div class="quad-card"><span>Resolution Time</span><h2>22 mins avg</h2></div>
+            </div>
+            <div class="dashboard-dual-equal">
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-headset"></i> Support Ticket Channels</h4>
+                    <div class="chart-wrapper"><canvas id="broadcastBarChart"></canvas></div>
+                </div>
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-clock"></i> Peak Inquiry Hours</h4>
+                    <div class="chart-wrapper"><canvas id="broadcastLineChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 8: COMPLIANCE & AUDIT -->
+        <div id="view-training" class="content-panel">
+            <h2 class="panel-headline">Compliance & <span>Regulatory Audit</span></h2>
+            <div class="panel-description-box">
+                Regulatory reporting, Truth in Lending Act (TILA) compliance checks, and secure audit trail logs.
+            </div>
+            <div class="summary-quad-grid">
+                <div class="quad-card"><span>Audit Score</span><h2>100<span>%</span></h2></div>
+                <div class="quad-card"><span>Secured Portals</span><h2>12 Active</h2></div>
+            </div>
+            <div class="dashboard-dual-equal">
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-sliders"></i> Regulatory Readiness Ratio</h4>
+                    <div class="chart-wrapper"><canvas id="trainingLineChart"></canvas></div>
+                </div>
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-chart-line"></i> Audit Trail Integrity</h4>
+                    <div class="chart-wrapper"><canvas id="trainingAccuracyChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 9: LOAN PRODUCT CATALOG -->
+        <div id="view-reports" class="content-panel">
+            <h2 class="panel-headline">Loan Product <span>Catalog & Interest Rates</span></h2>
+            <div class="panel-description-box">
+                Configure loan terms, interest rate tiers, maximum credit limits, and amortization formulas.
+            </div>
+            <div class="summary-quad-grid">
+                <div class="quad-card"><span>Active Products</span><h2>8 Programs</h2></div>
+                <div class="quad-card"><span>Avg Interest Rate</span><h2>7.4<span>%</span> APR</h2></div>
+            </div>
+            <div class="dashboard-dual-equal">
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-briefcase"></i> Product Profitability Share</h4>
+                    <div class="chart-wrapper"><canvas id="compliancePieChart"></canvas></div>
+                </div>
+                <div class="graph-display-card">
+                    <h4><i class="fa-solid fa-lock"></i> Program Access Traffic</h4>
+                    <div class="chart-wrapper"><canvas id="complianceBarChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script>
+        const primaryGold = '#FFD700';
+        const accentGold = '#D4AF37';
+        const obsidianBase = '#070b14';
+        const mutedGray = '#94a3b8';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentUserName = localStorage.getItem('currentUser') || "Managing Director";
+            const currentUserEmail = localStorage.getItem('currentUserEmail') || "executive.lending@stackly.com";
+
+            document.getElementById('userProfileDisplayName').innerText = currentUserName;
+            document.getElementById('userProfileDisplayEmail').innerText = currentUserEmail;
+
+            triggerAllChartEngines();
+        });
+
+        function openSidebarDrawer() {
+            document.getElementById('appSidebar').classList.add('mobile-open');
+            document.getElementById('sidebarOverlay').classList.add('mobile-open');
+        }
+
+        function closeSidebarDrawer() {
+            document.getElementById('appSidebar').classList.remove('mobile-open');
+            document.getElementById('sidebarOverlay').classList.remove('mobile-open');
+        }
+
+        function toggleActiveView(panelIdentity, elementInstance) {
+            document.querySelectorAll('.content-panel').forEach(view => view.classList.remove('active-panel-frame'));
+            document.querySelectorAll('.menu-section-node').forEach(node => node.classList.remove('active-section'));
+
+            document.getElementById(`view-${panelIdentity}`).classList.add('active-panel-frame');
+            elementInstance.classList.add('active-section');
+            closeSidebarDrawer();
+        }
+
+        function flushStateStorage() {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('currentUserEmail');
+        }
+
+        function triggerAllChartEngines() {
+            const standardOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { 
+                    legend: { 
+                        position: 'bottom',
+                        labels: { 
+                            boxWidth: 12,
+                            color: mutedGray, 
+                            font: { family: 'Plus Jakarta Sans', size: 10 } 
+                        } 
+                    } 
+                },
+                scales: {
+                    x: { 
+                        grid: { color: 'rgba(212, 175, 55, 0.08)' }, 
+                        ticks: { color: mutedGray, font: { size: 9 } } 
+                    },
+                    y: { 
+                        grid: { color: 'rgba(212, 175, 55, 0.08)' }, 
+                        ticks: { color: mutedGray, font: { size: 9 } } 
+                    }
+                }
+            };
+
+            const pieOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { 
+                    legend: { 
+                        position: 'bottom',
+                        labels: { 
+                            boxWidth: 12,
+                            color: mutedGray, 
+                            font: { family: 'Plus Jakarta Sans', size: 10 } 
+                        } 
+                    } 
+                }
+            };
+
+            new Chart(document.getElementById('volOverviewAreaChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{ label: 'Disbursement Volume ($M)', data: [1.2, 1.8, 2.4, 3.2, 4.5, 5.8, 6.4], borderColor: primaryGold, backgroundColor: 'rgba(255, 215, 0, 0.12)', tension: 0.4, fill: true }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('overviewFunnelDonut'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Mortgage', 'Commercial', 'Personal', 'Auto Loan'],
+                    datasets: [{ data: [45, 30, 15, 10], backgroundColor: ['#FFD700', '#D4AF37', '#aa771c', '#94a3b8'], borderWidth: 0 }]
+                },
+                options: pieOptions
+            });
+
+            new Chart(document.getElementById('overviewBarThroughput'), {
+                type: 'bar',
+                data: {
+                    labels: ['Submitted', 'KYC Verified', 'Underwritten', 'Approved'],
+                    datasets: [{ label: 'Applications Count', data: [520, 410, 310, 248], backgroundColor: primaryGold, borderRadius: 6 }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('overviewMainWaveChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [
+                        { label: 'Principal Repayments ($M)', data: [4.2, 5.1, 6.8, 8.2, 10.5, 13.2], borderColor: primaryGold, tension: 0.3, fill: false },
+                        { label: 'Interest Yield ($M)', data: [0.8, 1.1, 1.5, 1.9, 2.4, 3.1], borderColor: accentGold, tension: 0.3, fill: false }
+                    ]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('rosterBarChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{ label: 'Applications Logged', data: [120, 210, 340, 480, 620, 840], backgroundColor: primaryGold, borderRadius: 6 }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('rosterPieChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Tier 1 (Prime)', 'Tier 2 (Near-Prime)', 'Tier 3 (Subprime)', 'Commercial'],
+                    datasets: [{ data: [50, 25, 15, 10], backgroundColor: ['#FFD700', '#D4AF37', '#aa771c', '#94a3b8'], borderWidth: 0 }]
+                },
+                options: pieOptions
+            });
+
+            new Chart(document.getElementById('shiftsLineChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Q1 Portfolio', 'Q2 Portfolio', 'Q3 Portfolio', 'Q4 Target'],
+                    datasets: [{ label: 'Portfolio Growth ($M)', data: [32, 38, 44, 52], borderColor: primaryGold, backgroundColor: 'rgba(255, 215, 0, 0.12)', tension: 0.3, fill: true }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('shiftsSecondaryLine'), {
+                type: 'line',
+                data: {
+                    labels: ['Month 1', 'Month 2', 'Month 3', 'Month 4'],
+                    datasets: [{ label: 'Liquidity Buffer (%)', data: [98.5, 99.1, 99.4, 99.8], borderColor: accentGold, tension: 0.3, fill: false }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('eventsBarChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Wire ACH', 'Direct Deposit', 'Corporate Escrow', 'Instant Payout'],
+                    datasets: [{ label: 'Disbursement ($K)', data: [450, 780, 1200, 320], backgroundColor: primaryGold, borderRadius: 6 }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('eventsRadarChart'), {
+                type: 'radar',
+                data: {
+                    labels: ['Escrow Security', 'Wire Speed', 'Tranche Control', 'Audit Trail', 'Liquidity'],
+                    datasets: [{ label: 'Vault Health', data: [99, 98, 97, 100, 96], borderColor: primaryGold, backgroundColor: 'rgba(255, 215, 0, 0.15)' }]
+                },
+                options: pieOptions
+            });
+
+            new Chart(document.getElementById('impactRadarChart'), {
+                type: 'radar',
+                data: {
+                    labels: ['ID Verification', 'Bank Parsing', 'Tax Check', 'AML Screening', 'Fraud Detection'],
+                    datasets: [{ label: 'KYC Security', data: [99, 98, 96, 100, 97], borderColor: primaryGold, backgroundColor: 'rgba(255, 215, 0, 0.15)' }]
+                },
+                options: pieOptions
+            });
+
+            new Chart(document.getElementById('impactBarChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: [{ label: 'KYC Files Processed (K)', data: [1.2, 2.1, 3.4, 4.8], backgroundColor: primaryGold, borderRadius: 6 }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('resourcesPolarChart'), {
+                type: 'polarArea',
+                data: {
+                    labels: ['Auto-Reminders', 'Collection Agents', 'Legal Restructuring', 'Debt Settlement'],
+                    datasets: [{ data: [85, 60, 40, 25], backgroundColor: ['rgba(255, 215, 0, 0.85)', 'rgba(212, 175, 55, 0.85)', 'rgba(170, 119, 28, 0.85)', 'rgba(148, 163, 184, 0.6)'] }]
+                },
+                options: pieOptions
+            });
+
+            new Chart(document.getElementById('resourcesBarChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['30 Days Past', '60 Days Past', '90+ Days Past'],
+                    datasets: [{ label: 'Accounts', data: [28, 12, 5], backgroundColor: primaryGold, borderRadius: 6 }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('broadcastBarChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Secure Portal', 'Direct Phone', 'Email Support', 'Branch Visit'],
+                    datasets: [{ label: 'Inquiry Volume', data: [42, 28, 35, 14], backgroundColor: primaryGold, borderRadius: 6 }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('broadcastLineChart'), {
+                type: 'line',
+                data: {
+                    labels: ['9 AM', '12 PM', '3 PM', '6 PM', '9 PM'],
+                    datasets: [{ label: 'Inquiries', data: [8, 24, 32, 18, 6], borderColor: primaryGold, tension: 0.3, fill: true, backgroundColor: 'rgba(255, 215, 0, 0.12)' }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('trainingLineChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Audit 1', 'Audit 2', 'Audit 3', 'Audit 4'],
+                    datasets: [{ label: 'TILA & Reg Compliance (%)', data: [99.2, 99.6, 99.8, 100], borderColor: accentGold, tension: 0.3, fill: false }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('trainingAccuracyChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{ label: 'Trail Integrity (%)', data: [100, 100, 100, 100], borderColor: primaryGold, tension: 0.3, fill: true, backgroundColor: 'rgba(255, 215, 0, 0.12)' }]
+                },
+                options: standardOptions
+            });
+
+            new Chart(document.getElementById('compliancePieChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Mortgage', 'SME Business', 'Personal Loan', 'Line of Credit'],
+                    datasets: [{ data: [40, 30, 20, 10], backgroundColor: ['#FFD700', '#D4AF37', '#aa771c', '#94a3b8'], borderWidth: 0 }]
+                },
+                options: pieOptions
+            });
+
+            new Chart(document.getElementById('complianceBarChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Portal A', 'Portal B', 'Portal C'],
+                    datasets: [{ label: 'Active Sessions', data: [85, 62, 44], backgroundColor: primaryGold, borderRadius: 6 }]
+                },
+                options: standardOptions
+            });
+        }
+    </script>
+</body>
+</html>

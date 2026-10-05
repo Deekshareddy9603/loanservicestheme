@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Stackly — 404 Page Not Found</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+        --primary-gold: #FFD700;
+        --accent-gold: #D4AF37;
+        --gold-glow: rgba(255, 215, 0, 0.25);
+        --deep-obsidian: #070b14;
+        --surface-card: rgba(15, 23, 42, 0.94);
+        --charcoal-text: #ffffff;
+        --muted-gray: #94a3b8;
+        --border-gold: rgba(212, 175, 55, 0.35);
+        --font-body: 'Plus Jakarta Sans', sans-serif;
+        --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        --shadow-soft: 0 25px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        background: var(--deep-obsidian);
+        color: var(--charcoal-text);
+        font-family: var(--font-body);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        padding: 2rem;
+    }
+
+    body::before {
+        content: '';
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.07) 0%, rgba(7, 11, 20, 0) 70%);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        pointer-events: none;
+        animation: ambientGlow 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes ambientGlow {
+        0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+        100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9; }
+    }
+
+    .error-container {
+        position: relative;
+        z-index: 10;
+        background: var(--surface-card);
+        border: 1px solid var(--border-gold);
+        border-radius: 28px;
+        padding: 3.5rem 2.5rem;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(20px);
+    }
+
+    .error-code {
+        font-size: 7rem;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -2px;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 10px 30px var(--gold-glow);
+    }
+
+    .error-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--charcoal-text);
+        margin-bottom: 1rem;
+        letter-spacing: -0.5px;
+    }
+
+    .error-description {
+        color: var(--muted-gray);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+    }
+
+    .action-button-group {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 0.9rem 1.8rem;
+        border-radius: 14px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: var(--transition);
+        text-decoration: none;
+    }
+
+    .btn-action.primary {
+        background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+        color: #070b14;
+        border: 1px solid var(--primary-gold);
+        box-shadow: 0 4px 20px var(--gold-glow);
+    }
+
+    .btn-action.primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 25px rgba(255, 215, 0, 0.4);
+    }
+
+    .btn-action.secondary {
+        background: rgba(30, 41, 59, 0.7);
+        color: var(--charcoal-text);
+        border: 1px solid var(--border-gold);
+    }
+
+    .btn-action.secondary:hover {
+        background: rgba(255, 215, 0, 0.1);
+        border-color: var(--primary-gold);
+        color: var(--primary-gold);
+        transform: translateY(-3px);
+    }
+
+    @media (max-width: 480px) {
+        .error-code { font-size: 5rem; }
+        .error-title { font-size: 1.6rem; }
+        .error-container { padding: 2.5rem 1.5rem; }
+        .action-button-group { flex-direction: column; width: 100%; }
+        .btn-action { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="error-container">
+    <div class="error-code">404</div>
+    <h1 class="error-title">Page Not Found</h1>
+    <p class="error-description">
+      The page you are looking for might have been removed, had its name changed, or is temporarily unavailable in your client portal.
+    </p>
+
+    <div class="action-button-group">
+      <button onclick="history.back()" class="btn-action secondary">
+        <i class="fa-solid fa-arrow-left"></i> Go Back
+      </button>
+      <a href="index.html" class="btn-action primary">
+        <i class="fa-solid fa-house-chimney"></i> Go Home Page
+      </a>
+    </div>
+  </div>
+<script>
+  function handleGoBack() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromPage = urlParams.get('from') || 'index.html';
+    const scrollTarget = urlParams.get('scroll');
+
+    let targetUrl = fromPage;
+    if (scrollTarget) {
+      targetUrl += `?scroll=${scrollTarget}`;
+    }
+
+    window.location.href = targetUrl;
+  }
+</script>
+</body>
+</html>

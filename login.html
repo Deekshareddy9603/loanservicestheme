@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stackly Finance | Secure Executive Authentication Portal</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #070b14;
+            --bg-card: linear-gradient(145deg, rgba(15, 23, 42, 0.95) 0%, rgba(7, 11, 20, 0.98) 100%);
+            --border-gold: rgba(212, 175, 55, 0.35);
+            --primary-gold: #FFD700;
+            --accent-gold: #D4AF37;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 12px;
+        }
+
+        /* Ambient Cinematic Background Glows */
+        .portal-ambient-glow {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .portal-ambient-glow.glow-top {
+            top: -20px;
+            left: -20px;
+            background: rgba(255, 215, 0, 0.08);
+        }
+        .portal-ambient-glow.glow-bottom {
+            bottom: -20px;
+            right: -20px;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* Floating Home Navigation Button */
+        .home-floating-btn {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            background: rgba(7, 11, 20, 0.9);
+            border: 1px solid var(--border-gold);
+            color: var(--primary-gold);
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Split-Screen Portal Wrapper */
+        .portal-master-wrapper {
+            width: 100%;
+            max-width: 1050px;
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-gold);
+            border-radius: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
+            margin: auto;
+        }
+
+        /* Left Side: Cinematic Brand Preview Sidebar */
+        .portal-brand-sidebar {
+            position: relative;
+            background: url('./img\ 11.webp') no-repeat center center;
+            background-size: cover;
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar-dark-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(7, 11, 20, 0.85) 0%, rgba(7, 11, 20, 0.95) 100%);
+        }
+
+        .sidebar-content-top, .sidebar-content-bottom {
+            position: relative;
+            z-index: 2;
+        }
+
+        .sidebar-headline {
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-headline span {
+            background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .sidebar-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            text-transform: uppercase;
+        }
+
+        /* Right Side: Form Container */
+        .portal-form-container {
+            padding: 2rem 1.5rem;
+            background: rgba(7, 11, 20, 0.98);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .auth-view {
+            display: none;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        .auth-view.active-view {
+            display: flex;
+        }
+
+        .form-top-brand {
+            margin-bottom: 0px;
+        }
+
+        .form-logo-img {
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .form-title-group h2 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.15rem;
+        }
+
+        .form-title-group p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cyber-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .cyber-input-wrapper i:not(.toggle-pass) {
+            position: absolute;
+            left: 12px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            pointer-events: none;
+        }
+
+        .cyber-input-wrapper input, 
+        .cyber-input-wrapper select {
+            width: 100%;
+            max-width: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1.5px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 9px 10px 9px 34px;
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .cyber-input-wrapper select {
+            cursor: pointer;
+            appearance: none;
+        }
+
+        .cyber-input-wrapper select option {
+            background: #070b14;
+            color: var(--text-main);
+        }
+
+        .cyber-input-wrapper input:focus, 
+        .cyber-input-wrapper select:focus {
+            border-color: #FFD700;
+            background: rgba(15, 23, 42, 1);
+        }
+
+        .toggle-pass {
+            position: absolute;
+            right: 12px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .form-utilities {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.72rem;
+            width: 100%;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .remember-me input {
+            cursor: pointer;
+            accent-color: #FFD700;
+            width: 12px;
+            height: 12px;
+        }
+
+        .forgot-link {
+            color: var(--primary-gold);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .error-feedback {
+            color: #ff5252;
+            font-size: 0.68rem;
+            font-weight: 700;
+            min-height: 8px;
+        }
+
+        .cyber-submit-btn {
+            background: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #AA771C 100%);
+            border: 1px solid #ffffff;
+            color: #070b14;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+        }
+
+        .social-divider {
+            text-align: center;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            font-weight: 700;
+            margin: 0.1rem 0;
+        }
+
+        .social-divider::before, .social-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 25%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-divider::before { left: 0; }
+        .social-divider::after { right: 0; }
+
+        .social-login-icons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .social-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1.5px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .switch-footer {
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            width: 100%;
+        }
+
+        .switch-footer span {
+            color: #FFD700;
+            font-weight: 800;
+            cursor: pointer;
+            margin-left: 3px;
+        }
+
+        /* Mobile Breakpoint Fixes */
+        @media (max-width: 900px) {
+            body {
+                padding: 8px;
+            }
+            .portal-master-wrapper {
+                grid-template-columns: 1fr;
+                width: 100%;
+                max-width: 100%;
+                border-radius: 14px;
+                margin-top: 35px;
+            }
+            .portal-brand-sidebar {
+                display: none;
+            }
+            .portal-form-container {
+                padding: 1.25rem 1rem;
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Go Home Button -->
+    <a href="index.html" class="home-floating-btn">
+        <i class="fa-solid fa-house"></i> Go Home
+    </a>
+
+    <!-- Ambient Glows -->
+    <div class="portal-ambient-glow glow-top"></div>
+    <div class="portal-ambient-glow glow-bottom"></div>
+
+    <!-- Master Split-Screen Portal Container -->
+    <div class="portal-master-wrapper">
+        
+        <!-- Left Side: Cinematic Brand Preview Sidebar -->
+        <div class="portal-brand-sidebar">
+            <div class="sidebar-dark-overlay"></div>
+            
+            <div class="sidebar-content-top"></div>
+
+            <div class="sidebar-content-bottom">
+                <div class="sidebar-badge">
+                    <i class="fa-solid fa-shield-halved"></i> Institutional Gateway
+                </div>
+                <h1 class="sidebar-headline">
+                    Secure <span>Executive</span> Authentication
+                </h1>
+                <p class="sidebar-desc">
+                    Access private wealth advisory desks, structured asset-backed credit lines, and real-time loan portfolio management from our Salem headquarters.
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Side: Form Container -->
+        <div class="portal-form-container">
+            
+            <!-- LOGIN VIEW -->
+            <div id="loginView" class="auth-view active-view">
+                <div class="form-top-brand">
+                    <a href="index.html">
+                        <img src="./gold.webp" alt="Stackly Logo" class="form-logo-img">
+                    </a>
+                </div>
+                <div class="form-title-group">
+                    <h2>Executive Sign In</h2>
+                    <p>Enter your credentials to access your financial dashboard</p>
+                </div>
+
+                <form id="loginForm">
+                    <label>Select Advisory Tier</label>
+                    <div class="cyber-input-wrapper">
+                        <select id="loginRole" required>
+                            <option value="" disabled selected>Select your portal role</option>
+                            <option value="admin">Managing Director / Executive Admin</option>
+                            <option value="client">Private Wealth / Corporate Client</option>
+                        </select>
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+
+                    <label>Email Address</label>
+                    <div class="cyber-input-wrapper">
+                        <input type="email" id="loginEmail" placeholder="executive@gmail.com" pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" required>
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+
+                    <label>Password</label>
+                    <div class="cyber-input-wrapper">
+                        <input type="password" id="loginPassword" class="password-field" placeholder="Enter your secure password" required> 
+                        <i class="fa-solid fa-lock"></i>
+                        <i class="fa-solid fa-eye toggle-pass"></i>
+                    </div>
+
+                    <div class="form-utilities">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMeCheckbox" required> Remember Me
+                        </label>
+                        <a href="404.html" class="forgot-link">Forgot Password?</a>
+                    </div>
+
+                    <div class="error-feedback" id="loginError"></div>
+
+                    <button type="submit" class="cyber-submit-btn">
+                        Authenticate <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="social-divider">or connect with</div>
+                <div class="social-login-icons">
+                    <a href="./404.html" class="social-btn"><i class="fa-brands fa-apple"></i></a>
+                    <a href="./404.html" class="social-btn"><i class="fa-brands fa-google"></i></a>
+                    <a href="./404.html" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+
+                <div class="switch-footer">
+                    Need a corporate account? <span onclick="toggleAuthMode()">Register Here</span>
+                </div>
+            </div>
+
+            <!-- SIGN UP VIEW -->
+            <div id="signupView" class="auth-view">
+                <div class="form-top-brand">
+                    <a href="index.html">
+                        <img src="./gold.webp" alt="Stackly Logo" class="form-logo-img">
+                    </a>
+                </div>
+                <div class="form-title-group">
+                    <h2>Register Account Profile</h2>
+                    <p>Establish your credentials to access our institutional advisory network</p>
+                </div>
+
+                <form id="signupForm">
+                    <label>Full Executive Name</label>
+                    <div class="cyber-input-wrapper">
+                        <input type="text" id="signupFirstName" placeholder="Executive Name" pattern="[A-Za-z\s]+" required>
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <label>Select Advisory Tier</label>
+                    <div class="cyber-input-wrapper">
+                        <select id="signupRole" required>
+                            <option value="" disabled selected>Select account type</option>
+                            <option value="admin">Managing Director / Executive Admin</option>
+                            <option value="client">Private Wealth / Corporate Client</option>
+                        </select>
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
+
+                    <label>Email Address</label>
+                    <div class="cyber-input-wrapper">
+                        <input type="email" id="signupEmail" placeholder="executive@gmail.com" pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" required>
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+
+                    <label>Password</label>
+                    <div class="cyber-input-wrapper">
+                        <input type="password" id="signupPassword" class="password-field" placeholder="Min 8 chars, 1 uppercase, 1 symbol" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}" required> 
+                        <i class="fa-solid fa-key"></i>
+                        <i class="fa-solid fa-eye toggle-pass"></i>
+                    </div>
+
+                    <label>Confirm Password</label>
+                    <div class="cyber-input-wrapper">
+                        <input type="password" id="signupConfirmPassword" class="password-field" placeholder="Confirm secure password" required> 
+                        <i class="fa-solid fa-key"></i>
+                        <i class="fa-solid fa-eye toggle-pass"></i>
+                    </div>
+
+                    <div class="error-feedback" id="signupError"></div>
+
+                    <button type="submit" class="cyber-submit-btn">
+                        Create Portal Account <i class="fa-solid fa-user-plus"></i>
+                    </button>
+                </form>
+
+               <div class="switch-footer">
+                    Already registered? <span onclick="toggleAuthMode()">Sign In</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Auth View Switching & Validation Script -->
+    <script>
+        let isSignup = false;
+
+        function toggleAuthMode() {
+            const loginView = document.getElementById('loginView');
+            const signupView = document.getElementById('signupView');
+            isSignup = !isSignup;
+
+            if (isSignup) {
+                loginView.classList.remove('active-view');
+                signupView.classList.add('active-view');
+            } else {
+                signupView.classList.remove('active-view');
+                loginView.classList.add('active-view');
+            }
+        }
+
+        document.querySelectorAll('.toggle-pass').forEach(toggleIcon => {
+            toggleIcon.addEventListener('click', function() {
+                const inputElement = this.parentElement.querySelector('.password-field');
+                if (inputElement.type === 'password') {
+                    inputElement.type = 'text';
+                    this.classList.replace('fa-eye', 'fa-eye-slash');
+                } else {
+                    inputElement.type = 'password';
+                    this.classList.replace('fa-eye-slash', 'fa-eye');
+                }
+            });
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.innerText = ""; 
+            const userEmail = document.getElementById('loginEmail').value;
+            const selectedRole = document.getElementById('loginRole').value;
+            const rememberCheckbox = document.getElementById('rememberMeCheckbox');
+
+            if (!rememberCheckbox.checked) {
+                errorDiv.innerText = "Validation Error: You must check 'Remember Me' to authenticate.";
+                return;
+            }
+
+            if (!userEmail.endsWith('@gmail.com')) {
+                errorDiv.innerText = "Validation Error: Authentication restricted to valid @gmail.com accounts.";
+                return;
+            }
+            localStorage.setItem('currentUserEmail', userEmail);
+            window.location.href = selectedRole === 'admin' ? './admin.html' : 'client.html';
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const errorDiv = document.getElementById('signupError');
+            errorDiv.innerText = ""; 
+            const fullName = document.getElementById('signupFirstName').value;
+            const userEmail = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+
+            if (password !== confirmPassword) {
+                errorDiv.innerText = "Validation Error: Passwords do not match.";
+                return;
+            }
+
+            if (!userEmail.endsWith('@gmail.com')) {
+                errorDiv.innerText = "Access Denied: Registrations must map to verified @gmail.com accounts.";
+                return;
+            }
+            localStorage.setItem('currentUser', fullName);
+            localStorage.setItem('currentUserEmail', userEmail);
+            alert("Account successfully created! Please sign in.");
+            toggleAuthMode();
+            document.getElementById('signupForm').reset();
+        });
+    </script>
+</body>
+</html>

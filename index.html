@@ -1,0 +1,4218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly | Premium Loan Services & Financial Solutions</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================
+           STACKLY PROFESSIONAL THEME STYLES
+           ========================================== */
+        :root {
+            --bg-main: #0B1120;
+            --bg-card: #131D31;
+            --bg-card-hover: #1A2640;
+            --accent-gold: #D4AF37;
+            --accent-gold-light: #F3E5AB;
+            --accent-gold-gradient: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA8C2C 100%);
+            --primary-blue: #3B82F6;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .gradient-text {
+            background: var(--accent-gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(11, 17, 32, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.95rem;
+            text-decoration: none;
+            z-index: 1002;
+        }
+
+        /* Larger Custom Logo Image Styles */
+        .logo-img {
+            width: 150px;
+            height: 50px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .logo-text span { color: var(--accent-gold); }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold-gradient);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1002;
+        }
+
+        /* Gold Login Button (Now redirects to login.html) */
+        .btn-login {
+            background: var(--accent-gold-gradient);
+            color: #0B1120;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            border: none;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* ==========================================
+           DYNAMIC CAROUSEL HERO SECTION
+           ========================================== */
+        .hero-carousel-section {
+            position: relative;
+            padding: 11rem 0 5rem;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(11, 17, 32, 0.90) 0%, rgba(11, 17, 32, 0.70) 100%),
+                        url('./1\ \(16\).webp') center/cover no-repeat;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .carousel-slide {
+            display: none;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 4rem;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            display: grid;
+            opacity: 1;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-content .badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: var(--accent-gold);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-content p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            margin-bottom: 2.5rem;
+            max-width: 520px;
+        }
+
+        .slide-features {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .slide-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .slide-feature-item i {
+            color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .slide-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold-gradient);
+            color: #0B1120;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-outline {
+            background: rgba(11, 17, 32, 0.4);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold-light);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        /* 3D Visual Card Styles */
+        .slide-image-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spiral-visual-card {
+            background: rgba(19, 29, 49, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(212, 175, 55, 0.15);
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            text-align: center;
+            padding: 1.25rem 1rem 1rem 1rem;
+        }
+
+        .spiral-visual-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+            animation: floatGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes floatGlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .card-floating-tag {
+            margin-top: 1rem;
+            background: rgba(11, 17, 32, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 0.85rem 1.25rem;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+        }
+
+        /* Carousel Navigation Controls */
+        .carousel-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            width: 36px;
+            border-radius: 6px;
+            background: var(--accent-gold-gradient);
+        }
+
+        .carousel-arrows {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .carousel-arrow-btn {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-arrow-btn:hover {
+            background: var(--accent-gold);
+            color: #0B1120;
+            border-color: var(--accent-gold);
+        }
+
+        /* Footer */
+        .footer {
+            background: #070B14;
+            border-top: 1px solid var(--border-color);
+            padding: 4rem 0 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 992px) {
+            .hero-carousel-section {
+                padding: 9rem 0 4rem;
+                min-height: auto;
+            }
+            .carousel-slide { 
+                grid-template-columns: 1fr; 
+                text-align: center; 
+                gap: 2.5rem; 
+            }
+            .slide-content h1 {
+                font-size: 2.5rem;
+            }
+            .slide-content p { 
+                margin: 0 auto 2rem; 
+                font-size: 1rem;
+            }
+            .slide-features { 
+                justify-content: center; 
+                flex-wrap: wrap; 
+                gap: 1rem;
+            }
+            .slide-actions { 
+                justify-content: center; 
+            }
+            .spiral-visual-card { 
+                max-width: 320px; 
+                margin: 0 auto; 
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100vw;
+                height: 100vh;
+                background: var(--bg-main);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: var(--transition);
+                z-index: 1001;
+                padding: 2rem;
+            }
+            .nav-menu.active {
+                left: 0;
+            }
+            .nav-menu .nav-link {
+                font-size: 1.25rem;
+                font-weight: 600;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav-right .btn-login {
+                display: none;
+            }
+            .mobile-login-container {
+                display: block;
+                margin-top: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1.25rem;
+            }
+            .slide-content h1 {
+                font-size: 2rem;
+            }
+            .slide-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn-primary, .btn-outline {
+                width: 100%;
+                justify-content: center;
+            }
+            .carousel-controls {
+                margin-top: 2rem;
+                padding-top: 1.25rem;
+            }
+        }
+
+        @media (min-width: 993px) {
+            .mobile-login-container { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header id="header" class="header">
+        <div class="nav-container">
+            <!-- Left: Larger Custom Logo Image -->
+            <a href="./index.html" class="logo">
+                <img src="./gold.webp" alt="Stackly Logo" class="logo-img">
+               
+            </a>
+
+            <!-- Center: Navigation Menu -->
+            <nav class="nav-menu" id="navMenu">
+                <a href="./index.html" class="nav-link active">Home</a>
+                <a href="./about.html" class="nav-link">About Us</a>
+                <a href="./loans.html" class="nav-link">Loans</a>
+                <a href="./eligibility.html" class="nav-link">Eligibility</a>
+                <a href="./emi calculator.html" class="nav-link">EMI Calculator</a>
+                <a href="./contact.html" class="nav-link">Contact</a>
+                
+                <!-- Login Button inside Mobile Menu View (Links to login.html) -->
+                <div class="mobile-login-container">
+                    <a href="./login.html" class="btn-login">
+                        <i class="fa-regular fa-user"></i> Login
+                    </a>
+                </div>
+            </nav>
+
+            <!-- Right: Desktop Login Button (Links to login.html) & Hamburger Toggle -->
+            <div class="nav-right">
+                <a href="./login.html" class="btn-login">
+                    <i class="fa-regular fa-user"></i> Login
+                </a>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero-carousel-section">
+        <div class="container">
+            <div class="carousel-container">
+                
+                <!-- SLIDE 1 -->
+                <div class="carousel-slide active" data-slide="0">
+                    <div class="slide-content">
+                        <div class="badge-tag"><i class="fa-solid fa-bolt"></i> Fast Disbursal in 5 Mins</div>
+                        <h1>Instant <span class="gradient-text">Personal Loans</span> for Life's Milestones</h1>
+                        <p>Get instant funds directly in your bank account with zero paperwork, flexible tenures up to 60 months, and lowest interest rates.</p>
+                        
+                        <div class="slide-features">
+                            <div class="slide-feature-item"><i class="fa-solid fa-check"></i> Zero Collateral</div>
+                            <div class="slide-feature-item"><i class="fa-solid fa-check"></i> Paperless KYC</div>
+                        </div>
+
+                        <div class="slide-actions">
+                            <a href="./404.html" class="btn-primary">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="./404.html" class="btn-outline">Calculate EMI</a>
+                        </div>
+                    </div>
+                    <div class="slide-image-wrapper">
+                        <div class="spiral-visual-card">
+                            <img src="./d.webp" alt="3D Gold Spiral Growth Arrow">
+                            <div class="card-floating-tag">
+                                <div><small style="color: var(--text-muted);">Interest Rate</small><h4 style="color: var(--accent-gold);">From 10.49% p.a.</h4></div>
+                                <i class="fa-solid fa-wallet" style="font-size: 1.4rem; color: var(--primary-blue);"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+           <!-- SLIDE 2 -->
+                <div class="carousel-slide" data-slide="1">
+                    <div class="slide-content">
+                        <div class="badge-tag"><i class="fa-solid fa-chart-line"></i> Empowering Entrepreneurs</div>
+                        <h1>Scale Your Business With <span class="gradient-text">Commercial Loans</span></h1>
+                        <p>Fuel your working capital, expand inventory, or upgrade machinery with tailored collateral-free business financing up to $250,000.</p>
+                        
+                        <div class="slide-features">
+                            <div class="slide-feature-item"><i class="fa-solid fa-check"></i> High Loan Limits</div>
+                            <div class="slide-feature-item"><i class="fa-solid fa-check"></i> Flexible Repayment</div>
+                        </div>
+
+                        <div class="slide-actions">
+                            <a href="./404.html" class="btn-primary">Get Business Loan <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="./404.html" class="btn-outline">View Plans</a>
+                        </div>
+                    </div>
+                    <div class="slide-image-wrapper">
+                        <div class="spiral-visual-card">
+                            <img src="./1 (11).webp" alt="Business Growth Spiral">
+                            <div class="card-floating-tag">
+                                <div><small style="color: var(--text-muted);">Max Approval</small><h4 style="color: var(--accent-gold);">Up to $250,000</h4></div>
+                                <i class="fa-solid fa-briefcase" style="font-size: 1.4rem; color: var(--primary-blue);"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 3 -->
+                <div class="carousel-slide" data-slide="2">
+                    <div class="slide-content">
+                        <div class="badge-tag"><i class="fa-solid fa-house-chimney"></i> Secure Your Future</div>
+                        <h1>Build Your Dream Home With <span class="gradient-text">Property Loans</span></h1>
+                        <p>Turn your dream home into reality with low-interest housing loans, expert legal guidance, and quick sanction letters within 48 hours.</p>
+                        
+                        <div class="slide-features">
+                            <div class="slide-feature-item"><i class="fa-solid fa-check"></i> Up to 30 Yrs Tenure</div>
+                            <div class="slide-feature-item"><i class="fa-solid fa-check"></i> Low Processing Fees</div>
+                        </div>
+
+                        <div class="slide-actions">
+                            <a href="./404.html" class="btn-primary">Apply for Housing <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="./404.html" class="btn-outline">EMI Calculator</a>
+                        </div>
+                    </div>
+                    <div class="slide-image-wrapper">
+                        <div class="spiral-visual-card">
+                            <img src="./1 (20).webp" alt="Property Loan Spiral">
+                            <div class="card-floating-tag">
+                                <div><small style="color: var(--text-muted);">Tenure Range</small><h4 style="color: var(--accent-gold);">Up to 30 Years</h4></div>
+                                <i class="fa-solid fa-building-columns" style="font-size: 1.4rem; color: var(--primary-blue);"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Controls -->
+                <div class="carousel-controls">
+                    <div class="carousel-dots" id="carouselDots">
+                        <span class="dot active" data-index="0"></span>
+                        <span class="dot" data-index="1"></span>
+                        <span class="dot" data-index="2"></span>
+                    </div>
+                    <div class="carousel-arrows">
+                        <div class="carousel-arrow-btn" id="prevBtn"><i class="fa-solid fa-arrow-left"></i></div>
+                        <div class="carousel-arrow-btn" id="nextBtn"><i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+  <!-- ABOUT US SECTION -->
+<section id="about" class="about-section">
+    <div class="container">
+        <div class="about-grid">
+            
+            <!-- Left Column: Visual Card & Badge -->
+            <div class="about-image-wrapper">
+                <div class="about-main-card">
+                    <img src="./1 (12).webp" alt="Stackly Team Working">
+                    
+                    <div class="about-floating-badge">
+                        <div class="badge-icon">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <div class="badge-content">
+                            <h4>Trusted Financial Partner</h4>
+                            <p>Over 10+ Years of Excellence & Transparency</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Content & Features -->
+            <div class="about-content">
+                <div class="section-tag">
+                    <i class="fa-solid fa-shield-halved"></i> About Stackly
+                </div>
+                <h2>Empowering Your Financial Future With <span class="gradient-text">Smart Solutions</span></h2>
+                <p>Stackly is engineered to simplify financial growth. Whether you are looking for rapid personal funding, business capital expansion, or streamlined asset management, we deliver secure, transparent, and lightning-fast financial services tailored to your exact milestones.</p>
+
+                <!-- Feature Box Grid -->
+                <div class="about-features-grid">
+                    <div class="about-feature-box">
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                        <h5>Lightning Fast</h5>
+                        <p>Instant approvals and same-day fund transfers.</p>
+                    </div>
+                    <div class="about-feature-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <h5>Bank-Grade Security</h5>
+                        <p>Advanced encryption for total data privacy.</p>
+                    </div>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="about-stats-row">
+                    <div class="stat-item">
+                        <h3 class="gradient-text">$500M+</h3>
+                        <p>Loans Disbursed</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="gradient-text">98%</h3>
+                        <p>Approval Rate</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="gradient-text">50k+</h3>
+                        <p>Happy Clients</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ==========================================
+       ABOUT US SECTION STYLES
+       ========================================== */
+    .about-section {
+        padding: 7rem 0;
+        position: relative;
+        background: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+        overflow: hidden;
+    }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 4rem;
+        align-items: center;
+    }
+
+    /* Left Side Image / Visual Card */
+    .about-image-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    .about-main-card {
+        background: var(--bg-card, #131D31);
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        position: relative;
+    }
+
+    .about-main-card img {
+        width: 100%;
+        height: 420px;
+        object-fit: cover;
+        display: block;
+        filter: brightness(0.9);
+        transition: var(--transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+    }
+
+    .about-main-card:hover img {
+        transform: scale(1.03);
+    }
+
+    /* Floating Badge over image */
+    .about-floating-badge {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        right: 1.5rem;
+        background: rgba(11, 17, 32, 0.88);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        padding: 1.25rem 1.5rem;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .badge-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(212, 175, 55, 0.15);
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-gold, #D4AF37);
+        font-size: 1.25rem;
+        flex-shrink: 0;
+    }
+
+    .badge-content h4 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0.15rem;
+        color: var(--text-main, #F8FAFC);
+        line-height: 1.3;
+    }
+
+    .badge-content p {
+        color: var(--text-muted, #94A3B8);
+        font-size: 0.82rem;
+    }
+
+    /* Right Side Content */
+    .about-content .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(212, 175, 55, 0.12);
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        color: var(--accent-gold, #D4AF37);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+    }
+
+    .about-content h2 {
+        font-size: 2.75rem;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -1px;
+        margin-bottom: 1.25rem;
+        color: var(--text-main, #F8FAFC);
+    }
+
+    .about-content > p {
+        color: var(--text-muted, #94A3B8);
+        font-size: 1.05rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    /* Feature Check Grid */
+    .about-features-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .about-feature-box {
+        background: var(--bg-card, #131D31);
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        padding: 1.25rem;
+        border-radius: 16px;
+        transition: var(--transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+    }
+
+    .about-feature-box:hover {
+        border-color: rgba(212, 175, 55, 0.4);
+        transform: translateY(-3px);
+        background: var(--bg-card-hover, #1A2640);
+    }
+
+    .about-feature-box i {
+        color: var(--accent-gold, #D4AF37);
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+        display: block;
+    }
+
+    .about-feature-box h5 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+        color: var(--text-main, #F8FAFC);
+    }
+
+    .about-feature-box p {
+        color: var(--text-muted, #94A3B8);
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    /* Stats Row */
+    .about-stats-row {
+        display: flex;
+        gap: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    }
+
+    .stat-item h3 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 0.15rem;
+    }
+
+    .stat-item p {
+        color: var(--text-muted, #94A3B8);
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    /* ==========================================
+       RESPONSIVE DESIGN BREAKPOINTS
+       ========================================== */
+    @media (max-width: 992px) {
+        .about-section {
+            padding: 5rem 0;
+        }
+        .about-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        .about-content h2 {
+            font-size: 2.25rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .about-stats-row {
+            gap: 1.5rem;
+            justify-content: space-between;
+        }
+        .stat-item h3 {
+            font-size: 1.75rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .about-section {
+            padding: 3.5rem 0;
+        }
+        .about-content h2 {
+            font-size: 1.85rem;
+            letter-spacing: -0.5px;
+        }
+        .about-content > p {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+        .about-features-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .about-main-card img {
+            height: 280px;
+        }
+        .about-floating-badge {
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            padding: 0.9rem 1rem;
+            gap: 0.9rem;
+            border-radius: 16px;
+        }
+        .badge-icon {
+            width: 42px;
+            height: 42px;
+            font-size: 1rem;
+            border-radius: 12px;
+        }
+        .badge-content h4 {
+            font-size: 0.95rem;
+        }
+        .badge-content p {
+            font-size: 0.75rem;
+        }
+        .about-stats-row {
+            flex-direction: column;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+        .stat-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card, #131D31);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+            padding: 0.85rem 1.25rem;
+            border-radius: 14px;
+        }
+        .stat-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+    }
+</style>
+<!-- LOANS & SERVICES SECTION -->
+<section id="loans" class="loans-section">
+    <div class="container">
+        
+        <!-- Section Header -->
+        <div class="loans-header">
+            <div class="section-tag">
+                <i class="fa-solid fa-wallet"></i> Tailored Financing
+            </div>
+            <h2>Explore Our <span class="gradient-text">Loan Products</span></h2>
+            <p>Choose from a wide array of flexible, low-interest loan solutions designed to accelerate your personal goals and business growth.</p>
+        </div>
+
+        <!-- Loans Grid -->
+        <div class="loans-grid">
+            
+            <!-- Card 1: Personal Loan -->
+            <div class="loan-card">
+                <div class="loan-icon-box">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h3>Personal Loan</h3>
+                <p class="loan-desc">Instant funding for weddings, medical emergencies, travel, or debt consolidation with zero collateral.</p>
+                
+                <ul class="loan-features-list">
+                    <li><i class="fa-solid fa-check"></i> Amount up to $50,000</li>
+                    <li><i class="fa-solid fa-check"></i> Tenure: 12 to 60 Months</li>
+                    <li><i class="fa-solid fa-check"></i> Quick Disbursal in 5 mins</li>
+                </ul>
+
+                <div class="loan-card-footer">
+                    <div>
+                        <small style="color: var(--text-muted);">Interest Rate</small>
+                        <h4 class="gradient-text">From 10.49% p.a.</h4>
+                    </div>
+                    <a href="./404.html" class="loan-action-btn"><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Card 2: Business Loan (Featured) -->
+            <div class="loan-card featured">
+                <div class="popular-badge">Most Popular</div>
+                <div class="loan-icon-box">
+                    <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <h3>Business Loan</h3>
+                <p class="loan-desc">Scale operations, upgrade inventory, or boost working capital with flexible commercial financing.</p>
+                
+                <ul class="loan-features-list">
+                    <li><i class="fa-solid fa-check"></i> Amount up to $250,000</li>
+                    <li><i class="fa-solid fa-check"></i> Tenure: Up to 5 Years</li>
+                    <li><i class="fa-solid fa-check"></i> Collateral-free options</li>
+                </ul>
+
+                <div class="loan-card-footer">
+                    <div>
+                        <small style="color: var(--text-muted);">Interest Rate</small>
+                        <h4 class="gradient-text">From 11.50% p.a.</h4>
+                    </div>
+                    <a href="./404.html" class="loan-action-btn"><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Card 3: Property & Housing Loan -->
+            <div class="loan-card">
+                <div class="loan-icon-box">
+                    <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <h3>Property & Housing</h3>
+                <p class="loan-desc">Turn your dream home into reality with low-interest housing loans and seamless approval processes.</p>
+                
+                <ul class="loan-features-list">
+                    <li><i class="fa-solid fa-check"></i> Amount up to $1,000,000</li>
+                    <li><i class="fa-solid fa-check"></i> Tenure: Up to 30 Years</li>
+                    <li><i class="fa-solid fa-check"></i> Low processing fees</li>
+                </ul>
+
+                <div class="loan-card-footer">
+                    <div>
+                        <small style="color: var(--text-muted);">Interest Rate</small>
+                        <h4 class="gradient-text">From 8.50% p.a.</h4>
+                    </div>
+                    <a href="./404.html" class="loan-action-btn"><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ==========================================
+       LOANS & SERVICES SECTION STYLES
+       ========================================== */
+    .loans-section {
+        padding: 7rem 0;
+        position: relative;
+        background: var(--bg-main, #0B1120);
+    }
+
+    .loans-header {
+        text-align: center;
+        max-width: 650px;
+        margin: 0 auto 4rem auto;
+    }
+
+    .loans-header .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(212, 175, 55, 0.12);
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        color: var(--accent-gold, #D4AF37);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+    }
+
+    .loans-header h2 {
+        font-size: 2.75rem;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -1px;
+        margin-bottom: 1rem;
+        color: var(--text-main, #F8FAFC);
+    }
+
+    .loans-header p {
+        color: var(--text-muted, #94A3B8);
+        font-size: 1.05rem;
+    }
+
+    /* Loans Grid Layout */
+    .loans-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+
+    .loan-card {
+        background: var(--bg-card, #131D31);
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        border-radius: 24px;
+        padding: 2.5rem 2rem;
+        position: relative;
+        transition: var(--transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+        display: flex;
+        flex-direction: column;
+    }
+
+    .loan-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(212, 175, 55, 0.4);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.1);
+        background: var(--bg-card-hover, #1A2640);
+    }
+
+    /* Featured Card Styling */
+    .loan-card.featured {
+        background: linear-gradient(145deg, #16223B 0%, #10192D 100%);
+        border: 1px solid rgba(212, 175, 55, 0.5);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.12);
+    }
+
+    .popular-badge {
+        position: absolute;
+        top: -14px;
+        right: 2rem;
+        background: var(--accent-gold-gradient, linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA8C2C 100%));
+        color: #0B1120;
+        font-size: 0.75rem;
+        font-weight: 800;
+        padding: 0.3rem 0.85rem;
+        border-radius: 50px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .loan-icon-box {
+        width: 60px;
+        height: 60px;
+        background: rgba(212, 175, 55, 0.12);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-gold, #D4AF37);
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .loan-card h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: var(--text-main, #F8FAFC);
+    }
+
+    .loan-desc {
+        color: var(--text-muted, #94A3B8);
+        font-size: 0.95rem;
+        margin-bottom: 1.75rem;
+        line-height: 1.5;
+    }
+
+    .loan-features-list {
+        list-style: none;
+        margin-bottom: 2rem;
+        flex-grow: 1;
+    }
+
+    .loan-features-list li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.9rem;
+        color: var(--text-main, #F8FAFC);
+        margin-bottom: 0.75rem;
+    }
+
+    .loan-features-list li i {
+        color: var(--accent-gold, #D4AF37);
+        font-size: 0.8rem;
+    }
+
+    .loan-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 1.25rem;
+        border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    }
+
+    .loan-card-footer h4 {
+        font-size: 1.1rem;
+        font-weight: 800;
+    }
+
+    .loan-action-btn {
+        width: 42px;
+        height: 42px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-main, #F8FAFC);
+        text-decoration: none;
+        transition: var(--transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+    }
+
+    .loan-action-btn:hover {
+        background: var(--accent-gold-gradient, linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA8C2C 100%));
+        color: #0B1120;
+        border-color: transparent;
+        transform: scale(1.05);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .loans-grid {
+            grid-template-columns: 1fr;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .loans-header h2 {
+            font-size: 2.25rem;
+        }
+        .loan-card {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
+
+<!-- IMAGES / GALLERY SECTION -->
+<section id="gallery" class="gallery-section">
+    <div class="container">
+        
+        <!-- Section Header -->
+        <div class="gallery-header">
+            <div class="section-tag">
+                <i class="fa-solid fa-images"></i> Visual Showcase
+            </div>
+            <h2>Moments & Milestones at <span class="gradient-text">Stackly</span></h2>
+            <p>Take a glimpse into our workspaces, client success meetings, and the dynamic team driving your financial innovations forward.</p>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+            
+            <!-- Gallery Item 1 -->
+            <div class="gallery-item large">
+                <img src="./1 (13).webp" alt="Team Collaboration">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <span class="gallery-tag">Workspace</span>
+                        <h4>Collaborative Strategy Sessions</h4>
+                    </div>
+                    <a href="404.html" class="gallery-icon-btn" title="View Details">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Gallery Item 2 -->
+            <div class="gallery-item">
+                <img src="./1 (14).webp" alt="Client Consultation">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <span class="gallery-tag">Client Success</span>
+                        <h4>Personalized Wealth Advisory</h4>
+                    </div>
+                    <a href="404.html" class="gallery-icon-btn" title="View Details">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Gallery Item 3 -->
+            <div class="gallery-item">
+                <img src="./1 (15).webp" alt="Modern Tech Office">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <span class="gallery-tag">Innovation</span>
+                        <h4>Fintech Hub & Operations</h4>
+                    </div>
+                    <a href="404.html" class="gallery-icon-btn" title="View Details">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Gallery Item 4 -->
+            <div class="gallery-item large">
+                <img src="./1 (16).webp" alt="Executive Meeting">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <span class="gallery-tag">Leadership</span>
+                        <h4>Global Partnership & Growth</h4>
+                    </div>
+                    <a href="404.html" class="gallery-icon-btn" title="View Details">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ==========================================
+       IMAGES / GALLERY SECTION STYLES
+       ========================================== */
+    .gallery-section {
+        padding: 7rem 0;
+        position: relative;
+        background: var(--bg-main, #0B1120);
+    }
+
+    .gallery-header {
+        text-align: center;
+        max-width: 650px;
+        margin: 0 auto 4rem auto;
+    }
+
+    .gallery-header .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(212, 175, 55, 0.12);
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        color: var(--accent-gold, #D4AF37);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+    }
+
+    .gallery-header h2 {
+        font-size: 2.75rem;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -1px;
+        margin-bottom: 1rem;
+        color: var(--text-main, #F8FAFC);
+    }
+
+    .gallery-header p {
+        color: var(--text-muted, #94A3B8);
+        font-size: 1.05rem;
+    }
+
+    /* Asymmetric Grid Layout */
+    .gallery-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 280px;
+        gap: 1.5rem;
+    }
+
+    .gallery-item {
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        background: var(--bg-card, #131D31);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .gallery-item.large {
+        grid-column: span 2;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: brightness(0.85);
+        transition: var(--transition, all 0.5s cubic-bezier(0.4, 0, 0.2, 1));
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.06);
+        filter: brightness(0.6);
+    }
+
+    .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        background: linear-gradient(to top, rgba(11, 17, 32, 0.95) 0%, rgba(11, 17, 32, 0.6) 60%, transparent 100%);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        opacity: 0.9;
+        transition: var(--transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+    }
+
+    .gallery-tag {
+        display: inline-block;
+        background: rgba(212, 175, 55, 0.2);
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        color: var(--accent-gold, #D4AF37);
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+
+    .gallery-info h4 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-main, #F8FAFC);
+        margin: 0;
+    }
+
+    /* Converted to anchor tag for redirection */
+    .gallery-icon-btn {
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-main, #F8FAFC);
+        font-size: 0.9rem;
+        text-decoration: none;
+        transform: translateY(10px);
+        opacity: 0;
+        transition: var(--transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+        flex-shrink: 0;
+    }
+
+    .gallery-item:hover .gallery-icon-btn {
+        transform: translateY(0);
+        opacity: 1;
+        background: var(--accent-gold-gradient, linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA8C2C 100%));
+        color: #0B1120;
+        border-color: transparent;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .gallery-grid {
+            grid-template-columns: 1fr;
+            grid-auto-rows: 300px;
+        }
+        .gallery-item.large {
+            grid-column: span 1;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .gallery-header h2 {
+            font-size: 2.25rem;
+        }
+        .gallery-overlay {
+            padding: 1.25rem;
+        }
+        .gallery-info h4 {
+            font-size: 1.1rem;
+        }
+    }
+</style>
+<!-- LOAN COMPARISON SECTION -->
+<section id="comparison" class="comparison-section">
+    <div class="container">
+        
+        <!-- Section Header -->
+        <div class="comparison-header">
+            <div class="section-tag">
+                <i class="fa-solid fa-scale-balanced"></i> Side-by-Side Review
+            </div>
+            <h2>Compare Our <span class="gradient-text">Loan Tiers</span></h2>
+            <p>Evaluate features, interest rates, and loan caps at a glance to select the precise tier matching your financial roadmap.</p>
+        </div>
+
+        <!-- Comparison Table / Grid Wrapper -->
+        <div class="comparison-wrapper">
+            <div class="comparison-table-container">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Features</th>
+                            <th>Starter Tier</th>
+                            <th class="highlight-col">Growth Tier <span class="table-badge">Popular</span></th>
+                            <th>Enterprise Tier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Max Loan Amount</strong></td>
+                            <td>$15,000</td>
+                            <td class="highlight-col"><strong>$75,000</strong></td>
+                            <td>$250,000+</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interest Rate (p.a.)</strong></td>
+                            <td>From 12.5%</td>
+                            <td class="highlight-col"><strong>From 10.5%</strong></td>
+                            <td>From 8.5%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Repayment Tenure</strong></td>
+                            <td>12 - 24 Months</td>
+                            <td class="highlight-col"><strong>12 - 60 Months</strong></td>
+                            <td>Up to 120 Months</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Collateral Required</strong></td>
+                            <td><i class="fa-solid fa-xmark text-danger"></i> None</td>
+                            <td class="highlight-col"><i class="fa-solid fa-xmark text-danger"></i> <strong>None</strong></td>
+                            <td><i class="fa-solid fa-check text-success"></i> Minimal Asset Lien</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Approval Speed</strong></td>
+                            <td>Within 24 Hours</td>
+                            <td class="highlight-col"><strong>Instant (AI-Powered)</strong></td>
+                            <td>1 - 3 Business Days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dedicated Advisor</strong></td>
+                            <td><i class="fa-solid fa-xmark text-danger"></i></td>
+                            <td class="highlight-col"><i class="fa-solid fa-check text-success"></i> <strong>Included</strong></td>
+                            <td><i class="fa-solid fa-check text-success"></i> 24/7 Priority</td>
+                        </tr>
+                        <tr class="table-action-row">
+                            <td></td>
+                            <td><a href="./404.html" class="table-btn-secondary">Choose Plan</a></td>
+                            <td class="highlight-col"><a href="./404.html" class="table-btn-primary">Get Started</a></td>
+                            <td><a href="./404.html" class="table-btn-secondary">Contact Us</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* ==========================================
+       LOAN COMPARISON SECTION STYLES
+       ========================================== */
+    .comparison-section {
+        padding: 7rem 0;
+        position: relative;
+        background: var(--bg-main, #0B1120);
+    }
+
+    .comparison-header {
+        text-align: center;
+        max-width: 650px;
+        margin: 0 auto 4rem auto;
+    }
+
+    .comparison-header .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(212, 175, 55, 0.12);
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        color: var(--accent-gold, #D4AF37);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+    }
+
+    .comparison-header h2 {
+        font-size: 2.75rem;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -1px;
+        margin-bottom: 1rem;
+        color: var(--text-main, #F8FAFC);
+    }
+
+    .comparison-header p {
+        color: var(--text-muted, #94A3B8);
+        font-size: 1.05rem;
+    }
+
+    /* Table Container Styling */
+    .comparison-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: var(--bg-card, #131D31);
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .comparison-table-container {
+        overflow-x: auto;
+    }
+
+    .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .comparison-table th, 
+    .comparison-table td {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        font-size: 0.95rem;
+        color: var(--text-main, #F8FAFC);
+    }
+
+    .comparison-table th {
+        background: #10192D;
+        font-size: 1.05rem;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+        text-align: left;
+        color: var(--text-muted, #94A3B8);
+        font-weight: 600;
+        width: 28%;
+    }
+
+    .comparison-table td {
+        text-align: center;
+    }
+
+    /* Highlighted Middle Column */
+    .comparison-table .highlight-col {
+        background: rgba(212, 175, 55, 0.05);
+        border-left: 1px solid rgba(212, 175, 55, 0.2);
+        border-right: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .table-badge {
+        display: inline-block;
+        background: var(--accent-gold-gradient, linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA8C2C 100%));
+        color: #0B1120;
+        font-size: 0.65rem;
+        font-weight: 800;
+        padding: 0.2rem 0.5rem;
+        border-radius: 50px;
+        text-transform: uppercase;
+        margin-left: 0.5rem;
+        vertical-align: middle;
+    }
+
+    .text-success {
+        color: #10B981;
+    }
+
+    .text-danger {
+        color: #EF4444;
+    }
+
+    /* Table Action Buttons */
+    .table-action-row td {
+        border-bottom: none;
+        padding-top: 1.75rem;
+        padding-bottom: 1.75rem;
+    }
+
+    .table-btn-primary {
+        display: inline-block;
+        background: var(--accent-gold-gradient, linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA8C2C 100%));
+        color: #0B1120;
+        padding: 0.65rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 0.9rem;
+        text-decoration: none;
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.25);
+        transition: var(--transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+    }
+
+    .table-btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+    }
+
+    .table-btn-secondary {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        color: var(--text-main, #F8FAFC);
+        padding: 0.65rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: var(--transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+    }
+
+    .table-btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .comparison-header h2 {
+            font-size: 2.25rem;
+        }
+        .comparison-table th, 
+        .comparison-table td {
+            padding: 1rem;
+            font-size: 0.85rem;
+        }
+    }
+</style>
+<!-- CINEMATIC GALLERY SECTION -->
+<section id="cinematic-gallery" class="cine-gallery-section">
+    <div class="container">
+        
+        <!-- Section Header -->
+        <div class="cine-header">
+            <div class="section-tag">
+                <i class="fa-solid fa-camera-retro"></i> Cinematic Lens
+            </div>
+            <h2>Behind the Scenes & <span class="gradient-text">Operations</span></h2>
+            <p>Explore our state-of-the-art workspaces, client milestones, and vibrant corporate culture captured through a fresh perspective.</p>
+        </div>
+
+        <!-- Masonry-Style Flex Layout -->
+        <div class="cine-grid">
+            
+            <!-- Column 1 -->
+            <div class="cine-col">
+                <div class="cine-card tall">
+                    <img src="./1 (15).webp" alt="Corporate Headquarters">
+                    <div class="cine-overlay">
+                        <div class="cine-badge">Architecture</div>
+                        <div class="cine-content">
+                            <h4>Global Headquarters</h4>
+                            <p>Designed for collaboration & innovation</p>
+                        </div>
+                        <a href="404.html" class="cine-action-btn" title="View Details">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="cine-card short">
+                    <img src="./1 (16).webp" alt="Executive Discussion">
+                    <div class="cine-overlay">
+                        <div class="cine-badge">Strategy</div>
+                        <div class="cine-content">
+                            <h4>Boardroom Planning</h4>
+                        </div>
+                        <a href="404.html" class="cine-action-btn" title="View Details">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="cine-col">
+                <div class="cine-card short">
+                    <img src="./1 (17).webp" alt="Team Brainstorming">
+                    <div class="cine-overlay">
+                        <div class="cine-badge">Culture</div>
+                        <div class="cine-content">
+                            <h4>Creative Sync-Ups</h4>
+                        </div>
+                        <a href="404.html" class="cine-action-btn" title="View Details">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="cine-card tall">
+                    <img src="./1 (18).webp" alt="Client Success Meeting">
+                    <div class="cine-overlay">
+                        <div class="cine-badge">Partnerships</div>
+                        <div class="cine-content">
+                            <h4>Empowering Founders</h4>
+                            <p>Helping modern startups secure funding</p>
+                        </div>
+                        <a href="404.html" class="cine-action-btn" title="View Details">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="cine-col">
+                <div class="cine-card medium">
+                    <img src="./1 (19).webp" alt="Tech Hub Operations">
+                    <div class="cine-overlay">
+                        <div class="cine-badge">Operations</div>
+                        <div class="cine-content">
+                            <h4>Fintech Control Center</h4>
+                        </div>
+                        <a href="404.html" class="cine-action-btn" title="View Details">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="cine-card medium">
+                    <img src="./1 (2).webp" alt="Community Event">
+                    <div class="cine-overlay">
+                        <div class="cine-badge">Community</div>
+                        <div class="cine-content">
+                            <h4>Annual Innovation Summit</h4>
+                        </div>
+                        <a href="404.html" class="cine-action-btn" title="View Details">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ==========================================
+       CINEMATIC GALLERY SECTION STYLES
+       ========================================== */
+    .cine-gallery-section {
+        padding: 7rem 0;
+        position: relative;
+        background: var(--bg-main, #0B1120);
+    }
+
+    .cine-header {
+        text-align: center;
+        max-width: 650px;
+        margin: 0 auto 4rem auto;
+    }
+
+    .cine-header .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(212, 175, 55, 0.12);
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        color: var(--accent-gold, #D4AF37);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+    }
+
+    .cine-header h2 {
+        font-size: 2.75rem;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -1px;
+        margin-bottom: 1rem;
+        color: var(--text-main, #F8FAFC);
+    }
+
+    .cine-header p {
+        color: var(--text-muted, #94A3B8);
+        font-size: 1.05rem;
+    }
+
+    /* 3-Column Columnar Grid Layout */
+    .cine-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    .cine-col {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    /* Card Heights */
+    .cine-card {
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        background: var(--bg-card, #131D31);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .cine-card.tall {
+        height: 420px;
+    }
+
+    .cine-card.medium {
+        height: 310px;
+    }
+
+    .cine-card.short {
+        height: 240px;
+    }
+
+    .cine-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: brightness(0.85);
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s ease;
+    }
+
+    .cine-card:hover img {
+        transform: scale(1.08);
+        filter: brightness(0.5);
+    }
+
+    /* Cinematic Overlay */
+    .cine-overlay {
+        position: absolute;
+        inset: 0;
+        padding: 2rem;
+        background: linear-gradient(to top, rgba(11, 17, 32, 0.95) 0%, rgba(11, 17, 32, 0.3) 60%, transparent 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        transition: background 0.4s ease;
+    }
+
+    .cine-badge {
+        display: inline-block;
+        background: rgba(212, 175, 55, 0.2);
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        color: var(--accent-gold, #D4AF37);
+        padding: 0.2rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.75rem;
+    }
+
+    .cine-content h4 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--text-main, #F8FAFC);
+        margin-bottom: 0.25rem;
+    }
+
+    .cine-content p {
+        font-size: 0.85rem;
+        color: var(--text-muted, #94A3B8);
+        margin: 0;
+        opacity: 0.9;
+    }
+
+    /* Redirection Action Button */
+    .cine-action-btn {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        width: 42px;
+        height: 42px;
+        background: rgba(11, 17, 32, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-main, #F8FAFC);
+        font-size: 0.85rem;
+        text-decoration: none;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(5px);
+    }
+
+    .cine-card:hover .cine-action-btn {
+        opacity: 1;
+        transform: translateY(0);
+        background: var(--accent-gold-gradient, linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA8C2C 100%));
+        color: #0B1120;
+        border-color: transparent;
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .cine-grid {
+            grid-template-columns: 1fr;
+        }
+        .cine-card.tall, 
+        .cine-card.medium, 
+        .cine-card.short {
+            height: 300px;
+        }
+        .cine-action-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .cine-header h2 {
+            font-size: 2.25rem;
+        }
+        .cine-overlay {
+            padding: 1.25rem;
+        }
+    }
+</style>
+<!-- METRICS / STATS SECTION -->
+<section id="metrics" class="metrics-section">
+    <div class="container">
+        
+        <!-- Section Header -->
+        <div class="metrics-header">
+            <div class="section-tag">
+                <i class="fa-solid fa-chart-line"></i> Proven Results
+            </div>
+            <h2>Driven by Trust, <span class="gradient-text">Defined by Numbers</span></h2>
+            <p>Our commitment to transparent financing and fast-track approvals has made us a preferred partner for thousands worldwide.</p>
+        </div>
+
+        <!-- Metrics Grid Wrapper -->
+        <div class="metrics-grid">
+            
+            <!-- Stat Item 1 -->
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                </div>
+                <h3 class="gradient-text">$500M+</h3>
+                <h4>Total Capital Disbursed</h4>
+                <p>Empowering businesses and individuals with fast liquidity when they need it most.</p>
+            </div>
+
+            <!-- Stat Item 2 -->
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <h3 class="gradient-text">45,000+</h3>
+                <h4>Satisfied Clients</h4>
+                <p>Growing communities, successful startups, and homeowners trusting our platform.</p>
+            </div>
+
+            <!-- Stat Item 3 -->
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h3 class="gradient-text">99.2%</h3>
+                <h4>Approval Success Rate</h4>
+                <p>Streamlined, AI-backed assessments ensuring smooth and stress-free processing.</p>
+            </div>
+
+            <!-- Stat Item 4 -->
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <h3 class="gradient-text">30+</h3>
+                <h4>Global Markets</h4>
+                <p>Operating across multiple regions to deliver world-class financial solutions.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ==========================================
+       METRICS / STATS SECTION STYLES
+       ========================================== */
+    .metrics-section {
+        padding: 7rem 0;
+        position: relative;
+        background: var(--bg-main, #0B1120);
+    }
+
+    .metrics-header {
+        text-align: center;
+        max-width: 650px;
+        margin: 0 auto 4rem auto;
+    }
+
+    .metrics-header .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(212, 175, 55, 0.12);
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        color: var(--accent-gold, #D4AF37);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+    }
+
+    .metrics-header h2 {
+        font-size: 2.75rem;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -1px;
+        margin-bottom: 1rem;
+        color: var(--text-main, #F8FAFC);
+    }
+
+    .metrics-header p {
+        color: var(--text-muted, #94A3B8);
+        font-size: 1.05rem;
+    }
+
+    /* 4-Column Grid Layout */
+    .metrics-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
+
+    .metric-card {
+        background: var(--bg-card, #131D31);
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        border-radius: 24px;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        transition: var(--transition, all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .metric-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(212, 175, 55, 0.4);
+        background: var(--bg-card-hover, #1A2640);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.1);
+    }
+
+    .metric-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 1.5rem auto;
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-gold, #D4AF37);
+        font-size: 1.5rem;
+        transition: transform 0.4s ease;
+    }
+
+    .metric-card:hover .metric-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .metric-card h3 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 0.5rem;
+    }
+
+    .metric-card h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-main, #F8FAFC);
+        margin-bottom: 0.75rem;
+    }
+
+    .metric-card p {
+        font-size: 0.9rem;
+        color: var(--text-muted, #94A3B8);
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .metrics-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .metrics-header h2 {
+            font-size: 2.25rem;
+        }
+        .metrics-grid {
+            grid-template-columns: 1fr;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .metric-card {
+            padding: 2rem 1.5rem;
+        }
+        .metric-card h3 {
+            font-size: 2.25rem;
+        }
+    }
+</style>
+<!-- FEATURED LOAN SOLUTIONS WITH IMAGES SECTION -->
+    <section class="loan-solutions-section">
+        <div class="container">
+            <div class="section-header text-center" style="text-align: center; margin-bottom: 3.5rem;">
+                <div class="badge-tag" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.4); color: var(--accent-gold); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-layer-group"></i> Tailored Offerings
+                </div>
+                <h2 style="font-size: 2.75rem; font-weight: 800; margin-bottom: 1rem;">Explore Our <span class="gradient-text">Loan Solutions</span></h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Designed to fit every milestone of your personal and professional journey.</p>
+            </div>
+
+            <div class="solutions-grid">
+                
+                <!-- Solution Card 1 -->
+                <div class="solution-card">
+                    <div class="solution-image-container">
+                        <img src="./1 (20).webp" alt="Personal Loan">
+                        <span class="solution-badge">Popular</span>
+                    </div>
+                    <div class="solution-body">
+                        <h3>Personal Milestones</h3>
+                        <p>Quick un-secured funding for travel, weddings, medical emergencies, or debt consolidation.</p>
+                        <div class="solution-footer">
+                            <span class="rate-text">From <strong>10.49%</strong> p.a.</span>
+                            <a href="./404.html" class="solution-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solution Card 2 -->
+                <div class="solution-card">
+                    <div class="solution-image-container">
+                        <img src="./business-meeting.webp" alt="Business Loan">
+                        <span class="solution-badge">Enterprise</span>
+                    </div>
+                    <div class="solution-body">
+                        <h3>Business Expansion</h3>
+                        <p>Working capital, equipment purchases, and invoice financing to scale your business operations.</p>
+                        <div class="solution-footer">
+                            <span class="rate-text">Up to <strong>$250k</strong></span>
+                            <a href="./404.html" class="solution-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solution Card 3 -->
+                <div class="solution-card">
+                    <div class="solution-image-container">
+                        <img src="./1 (22).webp" alt="Housing Loan">
+                        <span class="solution-badge">Long Term</span>
+                    </div>
+                    <div class="solution-body">
+                        <h3>Dream Homes & Property</h3>
+                        <p>Affordable housing loans with extended repayment tenures up to 30 years and zero hidden charges.</p>
+                        <div class="solution-footer">
+                            <span class="rate-text">Tenure up to <strong>30 Yrs</strong></span>
+                            <a href="./404.html" class="solution-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CSS STYLES FOR THIS SECTION -->
+    <style>
+        .loan-solutions-section {
+            padding: 6rem 0;
+            background: linear-gradient(180deg, rgba(19, 29, 49, 0.4) 0%, var(--bg-main) 100%);
+            border-top: 1px solid var(--border-color);
+        }
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .solution-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .solution-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            background: var(--bg-card-hover);
+        }
+        .solution-image-container {
+            position: relative;
+            height: 220px;
+            background: rgba(11, 17, 32, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .solution-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+        .solution-card:hover .solution-image-container img {
+            transform: scale(1.05);
+        }
+        .solution-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(11, 17, 32, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--accent-gold);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            backdrop-filter: blur(8px);
+        }
+        .solution-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .solution-body h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+        .solution-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.75rem;
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+        .solution-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .rate-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .rate-text strong {
+            color: var(--accent-gold);
+        }
+        .solution-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+        .solution-link:hover {
+            color: var(--accent-gold);
+            gap: 0.75rem;
+        }
+    </style>
+<!-- ADDITIONAL SECTION: Live Partner Marquee & Security Compliance Pillars -->
+    <section class="trust-marquee-section">
+        <div class="container">
+            <div class="section-header text-center" style="text-align: center; margin-bottom: 3rem;">
+                <div class="badge-tag" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.4); color: var(--accent-gold); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-handshake"></i> Verified Network
+                </div>
+                <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.75rem;">Backed By Leading <span class="gradient-text">Financial Institutions</span></h2>
+                <p style="color: var(--text-muted); font-size: 1rem; max-width: 550px; margin: 0 auto;">We partner with top-tier scheduled banks and NBFCs to bring you secure, compliant funding.</p>
+            </div>
+
+            <!-- Horizontal Partner Logo Ticker Marquee -->
+            <div class="marquee-wrapper">
+                <div class="marquee-track">
+                    <div class="partner-pill-logo"><i class="fa-solid fa-building-columns"></i> Apex Capital Bank</div>
+                    <div class="partner-pill-logo"><i class="fa-solid fa-shield-halved"></i> Sovereign Trust NBFC</div>
+                    <div class="partner-pill-logo"><i class="fa-solid fa-coins"></i> Meridian Global Fin</div>
+                    <div class="partner-pill-logo"><i class="fa-solid fa-landmark"></i> Vanguard Credit Union</div>
+                    <div class="partner-pill-logo"><i class="fa-solid fa-vault"></i> Zenith Reserve Bank</div>
+                    <!-- Duplicate for seamless looping effect -->
+                    <div class="partner-pill-logo"><i class="fa-solid fa-building-columns"></i> Apex Capital Bank</div>
+                    <div class="partner-pill-logo"><i class="fa-solid fa-shield-halved"></i> Sovereign Trust NBFC</div>
+                    <div class="partner-pill-logo"><i class="fa-solid fa-coins"></i> Meridian Global Fin</div>
+                </div>
+            </div>
+
+            <!-- Triple Compliance Security Pillars -->
+            <div class="compliance-pillars-grid">
+                <div class="pillar-box">
+                    <div class="pillar-icon"><i class="fa-solid fa-lock"></i></div>
+                    <h4>256-Bit SSL Encryption</h4>
+                    <p>All data transmissions between your browser and our servers are military-grade encrypted.</p>
+                </div>
+                <div class="pillar-box">
+                    <div class="pillar-icon"><i class="fa-solid fa-file-shield"></i></div>
+                    <h4>RBI / Regulatory Compliant</h4>
+                    <p>Strictly adhering to national digital lending guidelines and consumer protection protocols.</p>
+                </div>
+                <div class="pillar-box">
+                    <div class="pillar-icon"><i class="fa-solid fa-user-shield"></i></div>
+                    <h4>Zero Data Selling Policy</h4>
+                    <p>Your personal and financial records are never shared with third-party advertisers or brokers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CSS STYLES FOR THIS SECTION -->
+    <style>
+        .trust-marquee-section {
+            padding: 6rem 0;
+            background: var(--bg-main);
+            border-top: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        .marquee-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+        .marquee-track {
+            display: flex;
+            gap: 1.5rem;
+            width: max-content;
+            animation: scrollMarquee 25s linear infinite;
+        }
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+        .partner-pill-logo {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.75rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: var(--transition);
+        }
+        .partner-pill-logo:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            color: var(--accent-gold);
+            background: var(--bg-card-hover);
+        }
+        .partner-pill-logo i {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+        }
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .compliance-pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .pillar-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .pillar-box:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.4);
+            background: var(--bg-card-hover);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        .pillar-icon {
+            width: 55px;
+            height: 55px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-size: 1.25rem;
+            margin: 0 auto 1.25rem auto;
+        }
+        .pillar-box h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+        .pillar-box p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 992px) {
+            .compliance-pillars-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- ADDITIONAL SECTION: Global Currency Exchange & Remittance Ticker -->
+    <section class="global-currency-section">
+        <div class="container">
+            <div class="section-header text-center" style="text-align: center; margin-bottom: 3.5rem;">
+                <div class="badge-tag" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.4); color: var(--accent-gold); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-globe"></i> Global Reach
+                </div>
+                <h2 style="font-size: 2.75rem; font-weight: 800; margin-bottom: 1rem;">Cross-Border & <span class="gradient-text">Multi-Currency Funding</span></h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Transfer, convert, and disburse loans across international borders with zero exchange markup fees.</p>
+            </div>
+
+            <!-- Currency Cards Grid -->
+            <div class="currency-grid">
+                
+                <!-- Currency Card 1 -->
+                <div class="currency-card">
+                    <div class="currency-card-top">
+                        <div class="currency-flag-badge">USD</div>
+                        <span class="live-rate-badge up"><i class="fa-solid fa-arrow-trend-up"></i> +0.45%</span>
+                    </div>
+                    <h3>US Dollar</h3>
+                    <div class="currency-rate-display">
+                        <span>1 USD =</span>
+                        <strong>1.00 USD</strong>
+                    </div>
+                    <div class="currency-limits-bar">
+                        <span>Min Transfer: $100</span>
+                        <span>Instant FX</span>
+                    </div>
+                </div>
+
+                <!-- Currency Card 2 -->
+                <div class="currency-card active-featured">
+                    <div class="currency-card-top">
+                        <div class="currency-flag-badge gold">EUR</div>
+                        <span class="live-rate-badge up"><i class="fa-solid fa-arrow-trend-up"></i> +0.82%</span>
+                    </div>
+                    <h3>Euro Zone</h3>
+                    <div class="currency-rate-display">
+                        <span>1 EUR =</span>
+                        <strong style="color: var(--accent-gold);">1.08 USD</strong>
+                    </div>
+                    <div class="currency-limits-bar">
+                        <span>Min Transfer: €100</span>
+                        <span>Zero Markup</span>
+                    </div>
+                </div>
+
+                <!-- Currency Card 3 -->
+                <div class="currency-card">
+                    <div class="currency-card-top">
+                        <div class="currency-flag-badge">GBP</div>
+                        <span class="live-rate-badge down"><i class="fa-solid fa-arrow-trend-down"></i> -0.12%</span>
+                    </div>
+                    <h3>British Pound</h3>
+                    <div class="currency-rate-display">
+                        <span>1 GBP =</span>
+                        <strong>1.27 USD</strong>
+                    </div>
+                    <div class="currency-limits-bar">
+                        <span>Min Transfer: £100</span>
+                        <span>Instant FX</span>
+                    </div>
+                </div>
+
+                <!-- Currency Card 4 -->
+                <div class="currency-card">
+                    <div class="currency-card-top">
+                        <div class="currency-flag-badge">JPY</div>
+                        <span class="live-rate-badge up"><i class="fa-solid fa-arrow-trend-up"></i> +0.31%</span>
+                    </div>
+                    <h3>Japanese Yen</h3>
+                    <div class="currency-rate-display">
+                        <span>100 JPY =</span>
+                        <strong>0.67 USD</strong>
+                    </div>
+                    <div class="currency-limits-bar">
+                        <span>Min Transfer: ¥10k</span>
+                        <span>Instant FX</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CSS STYLES FOR THIS SECTION -->
+    <style>
+        .global-currency-section {
+            padding: 7rem 0;
+            background: var(--bg-main);
+            border-top: 1px solid var(--border-color);
+        }
+        .currency-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .currency-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .currency-card:hover, .currency-card.active-featured {
+            transform: translateY(-6px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            background: var(--bg-card-hover);
+        }
+        .currency-card.active-featured {
+            border-color: rgba(212, 175, 55, 0.5);
+            background: linear-gradient(145deg, var(--bg-card) 0%, rgba(212, 175, 55, 0.05) 100%);
+        }
+        .currency-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+        .currency-flag-badge {
+            background: rgba(11, 17, 32, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 0.85rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 10px;
+        }
+        .currency-flag-badge.gold {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: rgba(212, 175, 55, 0.4);
+            color: var(--accent-gold);
+        }
+        .live-rate-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .live-rate-badge.up {
+            color: #10B981;
+        }
+        .live-rate-badge.down {
+            color: #EF4444;
+        }
+        .currency-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+        .currency-rate-display {
+            background: rgba(11, 17, 32, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .currency-rate-display strong {
+            color: var(--text-main);
+            font-size: 1.05rem;
+        }
+        .currency-limits-bar {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 1024px) {
+            .currency-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .currency-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+   
+    <!-- ADDITIONAL SECTION: Interactive Tabbed FAQ Section with 5 Questions Per Tab -->
+    <section class="tabbed-faq-section">
+        <div class="container">
+            <div class="section-header text-center" style="text-align: center; margin-bottom: 3rem;">
+                <div class="badge-tag" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.4); color: var(--accent-gold); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-circle-question"></i> Help Center
+                </div>
+                <h2 style="font-size: 2.75rem; font-weight: 800; margin-bottom: 1rem;">Frequently Asked <span class="gradient-text">Questions</span></h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Select a category below to explore detailed answers regarding our digital lending platform.</p>
+            </div>
+
+            <!-- FAQ Categories Navigation Tabs -->
+            <div class="faq-tabs-nav">
+                <button class="faq-tab-btn active" data-target="faq-general">General Info</button>
+                <button class="faq-tab-btn" data-target="faq-process">Loan Process</button>
+                <button class="faq-tab-btn" data-target="faq-repayment">Repayment & Fees</button>
+                <button class="faq-tab-btn" data-target="faq-security">Security & Privacy</button>
+            </div>
+
+            <!-- FAQ Content Panes Container -->
+            <div class="faq-panes-wrapper">
+
+                <!-- TAB 1: GENERAL INFO (5 Questions) -->
+                <div class="faq-pane active" id="faq-general">
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>1. What is Stackly and how does it work?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>Stackly is a next-generation digital lending platform that connects borrowers directly with premier scheduled banks and NBFCs, streamlining the entire funding lifecycle through automated technology and instant verification APIs.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>2. Who is eligible to apply for a loan or credit line?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>Any resident citizen aged 21 or older with a stable source of income (salaried, self-employed, or business owner) and a valid national tax identifier or government-issued ID is eligible to apply.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>3. Are there any hidden charges or sign-up fees?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>No. We maintain a 100% transparent fee structure. All applicable interest rates, processing fees, and terms are fully disclosed before you sign your loan agreement.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>4. Can I use Stackly for business financing?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>Yes, we offer specialized commercial credit lines designed for inventory expansion, working capital management, and multi-currency international vendor disbursements.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>5. How can I contact customer support if I face issues?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>Our 24/7 digital concierge is available via live chat inside your dashboard, or you can email our support team directly at support@stackly-finance.com.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: LOAN PROCESS (5 Questions) -->
+                <div class="faq-pane" id="faq-process">
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>1. How long does the approval process take?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>Most loan applications are evaluated, verified, and approved in under 5 minutes using our proprietary automated credit scoring algorithm.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>2. What documents are required for digital KYC?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>You only need a valid government-issued ID, PAN/tax card, proof of address, and recent bank statements which can be securely shared via our digital integration partners.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>3. Will checking my eligibility impact my credit score?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>No, initial pre-qualification checks use a soft credit pull, which has absolutely zero impact on your credit score.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>4. When is the loan amount disbursed to my bank account?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>Once your digital agreement is signed, funds are immediately transferred to your designated bank account, usually arriving within 15 to 30 minutes.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>5. Can I modify my loan amount after submitting the form?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>Yes, you can adjust your requested loan amount or tenure slider during the pre-approval review stage before final contract confirmation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: REPAYMENT & FEES (5 Questions) -->
+                <div class="faq-pane" id="faq-repayment">
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>1. Are there any prepayment penalties for clearing early?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>Never. You can make high-value partial pre-payments or close your entire loan early at any time with zero penalty fees.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>2. How are monthly EMI installments collected?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>Installments are automatically debited on your chosen due date through an automated electronic NACH or digital mandate set up during onboarding.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>3. What happens if I miss a scheduled payment due date?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>A nominal late fee applies for delayed payments, and prolonged defaults may be reported to credit bureaus, affecting future loan approvals.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>4. Can I request a tenure extension if I experience cash flow issues?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>Yes, eligible borrowers can request flexible tenure extensions or restructuring options directly through their customer dashboard.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>5. How do I download my repayment schedule and tax certificates?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>You can instantly view, download, or print your complete amortization schedule and digital No Objection Certificates (NOC) directly from your portal.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: SECURITY & PRIVACY (5 Questions) -->
+                <div class="faq-pane" id="faq-security">
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>1. Is my personal and financial data secure?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>Yes, we use military-grade 256-bit SSL encryption for all data in transit and at rest, complying with top-tier international security frameworks.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>2. Do you sell or share my information with third-party marketers?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>We adhere to a strict Zero Data Selling policy. Your records are never distributed or sold to advertising brokers or external commercial entities.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>3. Are you compliant with national digital lending regulations?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>All lending partners integrated on our platform are fully licensed, regulated, and compliant with national banking and consumer protection laws.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>4. How can I request the deletion of my account data?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>You can submit a data privacy and account purge request through your account settings or by contacting our data protection officer directly.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <div class="faq-accordion-header">
+                            <h3>5. What authentication measures protect my account access?</h3>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-accordion-body">
+                            <p>We enforce multi-factor authentication (MFA), secure OTP verifications for sensitive transactions, and automated session timeouts to safeguard your account.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CSS & JAVASCRIPT FOR TABBED FAQS -->
+    <style>
+        .tabbed-faq-section {
+            padding: 7rem 0;
+            background: var(--bg-main);
+            border-top: 1px solid var(--border-color);
+        }
+        .faq-tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        .faq-tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .faq-tab-btn:hover, .faq-tab-btn.active {
+            background: rgba(212, 175, 55, 0.12);
+            border-color: rgba(212, 175, 55, 0.4);
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+        .faq-panes-wrapper {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+        .faq-pane {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .faq-pane.active {
+            display: flex;
+        }
+        .faq-accordion-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .faq-accordion-item:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            background: var(--bg-card-hover);
+        }
+        .faq-accordion-header {
+            padding: 1.25rem 1.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            gap: 1rem;
+        }
+        .faq-accordion-header h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+        }
+        .faq-accordion-header i {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .faq-accordion-item.open .faq-accordion-header i {
+            transform: rotate(180deg);
+            color: var(--accent-gold);
+        }
+        .faq-accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            padding: 0 1.75rem;
+            background: rgba(11, 17, 32, 0.4);
+        }
+        .faq-accordion-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin: 0 0 1.25rem 0;
+        }
+        .faq-accordion-item.open .faq-accordion-body {
+            max-height: 200px;
+            padding-top: 0.5rem;
+        }
+    </style>
+
+    <!-- JAVASCRIPT FOR SWITCHING TABS AND ACCORDION DROPDOWNS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab switching logic
+            const tabBtns = document.querySelectorAll('.faq-tab-btn');
+            const faqPanes = document.querySelectorAll('.faq-pane');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    faqPanes.forEach(pane => pane.classList.remove('active'));
+
+                    btn.classList.add('active');
+                    const targetPane = document.getElementById(btn.getAttribute('data-target'));
+                    if (targetPane) targetPane.classList.add('active');
+                });
+            });
+
+            // Accordion dropdown logic
+            const accordionHeaders = document.querySelectorAll('.faq-accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const item = header.parentElement;
+                    const isOpen = item.classList.contains('open');
+                    
+                    // Close all items in current pane
+                    const currentPane = item.closest('.faq-pane');
+                    currentPane.querySelectorAll('.faq-accordion-item').forEach(i => {
+                        i.classList.remove('open');
+                    });
+
+                    // Toggle clicked item if it wasn't open
+                    if (!isOpen) {
+                        item.classList.add('open');
+                    }
+                });
+            });
+        });
+    </script>
+
+<!-- ADDITIONAL SECTION: Interactive Architecture & Loan Flow Layout -->
+    <section class="loan-architecture-section">
+        <div class="container">
+            <div class="section-header text-center" style="text-align: center; margin-bottom: 3.5rem;">
+                <div class="badge-tag" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.4); color: var(--accent-gold); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-network-wired"></i> System Architecture
+                </div>
+                <h2 style="font-size: 2.75rem; font-weight: 800; margin-bottom: 1rem;">How Our Engine <span class="gradient-text">Processes Your Loan</span></h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">A transparent look at our secure pipeline—from initial digital submission to instant disbursement.</p>
+            </div>
+
+            <!-- Architectural Flow Grid -->
+            <div class="arch-flow-grid">
+                
+                <!-- Node 1 -->
+                <div class="arch-node-card">
+                    <div class="node-number-badge">01</div>
+                    <div class="arch-icon-box">
+                        <i class="fa-solid fa-fingerprint"></i>
+                    </div>
+                    <h3>Instant Application</h3>
+                    <p>Submit your verified credentials through our encrypted 256-bit secure portal with zero paperwork.</p>
+                    <ul class="arch-meta-list">
+                        <li><i class="fa-solid fa-check"></i> Paperless KYC</li>
+                        <li><i class="fa-solid fa-check"></i> 2-Min Form</li>
+                    </ul>
+                </div>
+
+                <!-- Connector Arrow / Node -->
+                <div class="arch-connector-line">
+                    <div class="connector-dot"></div>
+                </div>
+
+                <!-- Node 2 -->
+                <div class="arch-node-card">
+                    <div class="node-number-badge">02</div>
+                    <div class="arch-icon-box">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3>AI Underwriting</h3>
+                    <p>Our proprietary risk algorithm evaluates credit bureau data and verifies eligibility in real-time.</p>
+                    <ul class="arch-meta-list">
+                        <li><i class="fa-solid fa-check"></i> Instant Score Pull</li>
+                        <li><i class="fa-solid fa-check"></i> Fraud Detection</li>
+                    </ul>
+                </div>
+
+                <!-- Connector Arrow / Node -->
+                <div class="arch-connector-line">
+                    <div class="connector-dot"></div>
+                </div>
+
+                <!-- Node 3 -->
+                <div class="arch-node-card">
+                    <div class="node-number-badge">03</div>
+                    <div class="arch-icon-box">
+                        <i class="fa-solid fa-vault"></i>
+                    </div>
+                    <h3>Direct Disbursement</h3>
+                    <p>Once approved and signed digitally, funds are instantly wired directly to your designated bank account.</p>
+                    <ul class="arch-meta-list">
+                        <li><i class="fa-solid fa-check"></i> Same-Day Wire</li>
+                        <li><i class="fa-solid fa-check"></i> Zero Hidden Fees</li>
+                    </ul>
+                </div>
+
+            </div>
+
+           
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CSS STYLES FOR ARCHITECTURE LAYOUT -->
+    <style>
+        .loan-architecture-section {
+            padding: 7rem 0;
+            background: linear-gradient(180deg, rgba(19, 29, 49, 0.4) 0%, var(--bg-main) 100%);
+            border-top: 1px solid var(--border-color);
+        }
+        .arch-flow-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem auto;
+            align-items: center;
+        }
+        .arch-node-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            position: relative;
+            transition: var(--transition);
+        }
+        .arch-node-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212, 175, 55, 0.4);
+            background: var(--bg-card-hover);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .node-number-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: rgba(212, 175, 55, 0.25);
+        }
+        .arch-icon-box {
+            width: 60px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .arch-node-card h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+        }
+        .arch-node-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .arch-meta-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.25rem;
+        }
+        .arch-meta-list li {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .arch-meta-list li i {
+            color: #10B981;
+            font-size: 0.8rem;
+        }
+        .arch-connector-line {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            position: relative;
+        }
+        .arch-connector-line::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(212, 175, 55, 0.3);
+        }
+        .connector-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-gold);
+            z-index: 2;
+        }
+        
+        /* Architecture Console Log Box */
+        .arch-interactive-console {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #0B1120;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+        .console-header {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .console-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .console-dot.red { background: #EF4444; }
+        .console-dot.yellow { background: #F59E0B; }
+        .console-dot.green { background: #10B981; }
+        .console-title {
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+        .console-body {
+            padding: 1.25rem 1.5rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .log-tag {
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        @media (max-width: 968px) {
+            .arch-flow-grid {
+                grid-template-columns: 1fr;
+            }
+            .arch-connector-line {
+                height: 30px;
+                width: 2px;
+                margin: 0 auto;
+            }
+            .arch-connector-line::before {
+                width: 2px;
+                height: 100%;
+            }
+        }
+    </style>
+
+   
+     <!-- ADDITIONAL SECTION: Infinite Moving Horizontal Testimonials Marquee with Real Photos -->
+    <section class="moving-testimonials-section">
+        <div class="container">
+            <div class="section-header text-center" style="text-align: center; margin-bottom: 3.5rem;">
+                <div class="badge-tag" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.4); color: var(--accent-gold); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-comments"></i> Wall of Love
+                </div>
+                <h2 style="font-size: 2.75rem; font-weight: 800; margin-bottom: 1rem;">Loved by <span class="gradient-text">Thousands of Borrowers</span></h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Watch how our community experiences seamless financial freedom every single day.</p>
+            </div>
+        </div>
+
+        <!-- Infinite Moving Marquee Track Container -->
+        <div class="testimonial-marquee-container">
+            <div class="testimonial-marquee-track">
+                
+                <!-- Testimonial Card 1 -->
+                <div class="moving-review-card">
+                    <div class="review-top-row">
+                        <div class="rating-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                    </div>
+                    <p class="review-body">"The entire loan disbursement took less than 10 minutes. Zero physical paperwork and absolute transparency throughout!"</p>
+                    <div class="review-author-box">
+                        <img src="./men1.webp" alt="Jonathan Davis" class="author-avatar-img">
+                        <div class="author-details">
+                            <h4>Jonathan Davis</h4>
+                            <span>Software Engineer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial Card 2 -->
+                <div class="moving-review-card">
+                    <div class="review-top-row">
+                        <div class="rating-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                    </div>
+                    <p class="review-body">"Expanding our regional inventory became effortless thanks to Stackly’s flexible business credit lines and low interest rates."</p>
+                    <div class="review-author-box">
+                        <img src="./men2.webp" alt="Sarah Miller" class="author-avatar-img">
+                        <div class="author-details">
+                            <h4>Sarah Miller</h4>
+                            <span>Business Owner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial Card 3 -->
+                <div class="moving-review-card">
+                    <div class="review-top-row">
+                        <div class="rating-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                    </div>
+                    <p class="review-body">"Buying our first dream home felt overwhelming until we used Stackly. Their expert support team guided us step-by-step!"</p>
+                    <div class="review-author-box">
+                        <img src="./men3.webp" alt="Robert King" class="author-avatar-img">
+                        <div class="author-details">
+                            <h4>Robert King</h4>
+                            <span>Homeowner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial Card 4 -->
+                <div class="moving-review-card">
+                    <div class="review-top-row">
+                        <div class="rating-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                    </div>
+                    <p class="review-body">"Zero prepayment penalties allowed me to close my loan early and save big on interest charges. Truly revolutionary service!"</p>
+                    <div class="review-author-box">
+                        <img src="./men4.webp" alt="Ananya Patel" class="author-avatar-img">
+                        <div class="author-details">
+                            <h4>Ananya Patel</h4>
+                            <span>Product Designer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DUPLICATE SET FOR INFINITE SEAMLESS LOOPING -->
+                <div class="moving-review-card">
+                    <div class="review-top-row">
+                        <div class="rating-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                    </div>
+                    <p class="review-body">"The entire loan disbursement took less than 10 minutes. Zero physical paperwork and absolute transparency throughout!"</p>
+                    <div class="review-author-box">
+                        <img src="./men5.webp" alt="Jonathan Davis" class="author-avatar-img">
+                        <div class="author-details">
+                            <h4>Jonathan Davis</h4>
+                            <span>Software Engineer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="moving-review-card">
+                    <div class="review-top-row">
+                        <div class="rating-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Verified</span>
+                    </div>
+                    <p class="review-body">"Expanding our regional inventory became effortless thanks to Stackly’s flexible business credit lines and low interest rates."</p>
+                    <div class="review-author-box">
+                        <img src="./men6.webp" alt="Sarah Miller" class="author-avatar-img">
+                        <div class="author-details">
+                            <h4>Sarah Miller</h4>
+                            <span>Business Owner</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CSS STYLES FOR MOVING TESTIMONIALS -->
+    <style>
+        .moving-testimonials-section {
+            padding: 7rem 0;
+            background: linear-gradient(180deg, var(--bg-main) 0%, rgba(19, 29, 49, 0.5) 100%);
+            border-top: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        .testimonial-marquee-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            padding: 1rem 0;
+        }
+        .testimonial-marquee-track {
+            display: flex;
+            gap: 2rem;
+            width: max-content;
+            animation: slideTestimonials 35s linear infinite;
+        }
+        .testimonial-marquee-container:hover .testimonial-marquee-track {
+            animation-play-state: paused;
+        }
+        .moving-review-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.25rem;
+            width: 380px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .moving-review-card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            background: var(--bg-card-hover);
+            transform: translateY(-5px);
+        }
+        .review-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+        .rating-stars {
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+            display: flex;
+            gap: 3px;
+        }
+        .verified-badge {
+            font-size: 0.75rem;
+            color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+        }
+        .review-body {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.75rem;
+            font-style: italic;
+            flex-grow: 1;
+        }
+        .review-author-box {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .author-avatar-img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            flex-shrink: 0;
+        }
+        .author-details h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.15rem;
+        }
+        .author-details span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        @keyframes slideTestimonials {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-380px * 4 - 2rem * 4)); }
+        }
+    </style>
+    <!-- FULL-WIDTH SMALL-HEIGHT JOIN CTA SECTION -->
+    <section class="full-width-join-cta">
+        <div class="cta-inner-row">
+            <div class="cta-text-group">
+                <h3>Ready to get started with Stackly?</h3>
+                <p>Join over 50,000+ satisfied borrowers and businesses today.</p>
+            </div>
+            <a href="./404.html" class="btn-primary cta-join-btn">Join Now</a>
+        </div>
+    </section>
+
+    <!-- CSS STYLES -->
+    <style>
+        .full-width-join-cta {
+            width: 100%;
+            background: linear-gradient(90deg, #0b1120 0%, #162238 50%, #0b1120 100%);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.25rem 2rem;
+        }
+        .cta-inner-row {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        .cta-text-group h3 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.15rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .cta-text-group p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .btn-primary.cta-join-btn {
+            background: #d4af37;
+            color: #0b1120;
+            font-weight: 700;
+            padding: 0.65rem 2.25rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .btn-primary.cta-join-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .cta-inner-row {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+
+ <!-- PROFESSIONAL FOOTER SECTION -->
+    <footer class="footer-section" id="footer-section">
+        <div class="container">
+            <div class="footer-grid" id="footer-main-content">
+                
+                <!-- Column 1: Brand Info, Socials, and Contact Details -->
+                <div class="footer-col brand-col">
+                    <div class="footer-logo">
+                        <img src="./gold.webp" alt="Logo">
+                    </div>
+                    <p class="footer-desc">
+                        Empowering individuals and enterprises worldwide with secure, transparent, and lightning-fast digital lending solutions driven by next-gen architecture.
+                    </p>
+                    
+                    <!-- Social Icons (Updated with scroll target) -->
+                   <div class="footer-socials">
+    <a href="./404.html?from=index.html&scroll=footer-section" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="./404.html?from=index.html&scroll=footer-section" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    <a href="./404.html?from=index.html&scroll=footer-section" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+    <a href="./404.html?from=index.html&scroll=footer-section" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+</div>
+
+                    <!-- Contact Details placed below Social Icons -->
+                    <ul class="contact-info-list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>Salem, Tamil Nadu, India</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <span>+91 9967457745</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>loans@stackly.io</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Navigation Links (Expanded Professional Menu) -->
+                <div class="footer-col">
+                    <h4>Quick Lines</h4>
+                    <ul>
+                        <li><a href="./index.html">Home Overview</a></li>
+                        <li><a href="./about.html">About Company</a></li>
+                        <li><a href="./loans.html">Loan Products</a></li>
+                        <li><a href="./eligibility.html">Check Eligibility</a></li>
+                        <li><a href="./emi calculator.html">EMI Calculator</a></li>
+                        <li><a href="./contact.html">Support Center</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Newsletter Subscription with Gmail Validation -->
+                <div class="footer-col newsletter-col">
+                    <h4>Stay Ahead</h4>
+                    <p>Subscribe using your Gmail account for exclusive financial insights.</p>
+                    
+                    <form class="footer-form" id="newsletter-form" onsubmit="return false;">
+                        <div class="newsletter-input-wrap">
+                            <input type="email" id="newsletter-email" placeholder="username@gmail.com" aria-label="Email Address">
+                        </div>
+                        <button type="button" id="newsletter-sub-btn" class="btn-primary">Subscribe</button>
+                    </form>
+                </div>
+
+                <!-- Column 4: Major Banking & Enterprise Partner Logos on Right Side -->
+                <div class="footer-col banking-partners-col">
+                    <h4>Trusted Banking Partners</h4>
+                    <p class="banking-col-desc">Integrated with leading financial institutions worldwide.</p>
+                    <div class="banking-badges-grid">
+                        <div class="bank-badge hdfc">
+                            <i class="fa-solid fa-landmark"></i>
+                            <div>
+                                <span class="bank-name">HDFC Bank</span>
+                                <span class="bank-sub">Verified Partner</span>
+                            </div>
+                        </div>
+                        <div class="bank-badge icici">
+                            <i class="fa-solid fa-building-columns"></i>
+                            <div>
+                                <span class="bank-name">ICICI Bank</span>
+                                <span class="bank-sub">Secure API</span>
+                            </div>
+                        </div>
+                        <div class="bank-badge sbi">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <span class="bank-name">SBI Global</span>
+                                <span class="bank-sub">Direct Gateway</span>
+                            </div>
+                        </div>
+                        <div class="bank-badge axis">
+                            <i class="fa-solid fa-vault"></i>
+                            <div>
+                                <span class="bank-name">Axis Trust</span>
+                                <span class="bank-sub">Enterprise</span>
+                            </div>
+                        </div>
+                        <div class="bank-badge fed">
+                            <i class="fa-solid fa-globe"></i>
+                            <div>
+                                <span class="bank-name">Federal Reserve</span>
+                                <span class="bank-sub">Compliance</span>
+                            </div>
+                        </div>
+                        <div class="bank-badge world">
+                            <i class="fa-solid fa-coins"></i>
+                            <div>
+                                <span class="bank-name">World Bank</span>
+                                <span class="bank-sub">Global Network</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Bottom Bar -->
+            <div class="footer-bottom" id="footer-bottom-bar">
+                <p>&copy; 2026 StacklyLoansServices. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="./404.html">Privacy</a>
+                    <span>&bull;</span>
+                    <a href="./404.html">Terms</a>
+                    <span>&bull;</span>
+                    <a href="./404.html">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CSS STYLES -->
+    <style>
+        .footer-section {
+            background-color: #070b14;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            padding: 5rem 0 2rem 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 0.9fr 1.3fr 1.8fr;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+            align-items: start;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            margin-top: -50px;
+        }
+        .footer-logo img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+        .footer-desc {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+            margin-top: -50px;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .footer-socials a {
+            width: 36px;
+            height: 36px;
+            background: #131d31;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer-socials a:hover {
+            background: #182642;
+            border-color: rgba(212, 175, 55, 0.4);
+            color: #d4af37;
+            transform: translateY(-2px);
+        }
+        .contact-info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .contact-info-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .contact-info-list li i {
+            color: #d4af37;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.2px;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .footer-col ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .footer-col ul li a:hover {
+            color: #d4af37;
+        }
+        .newsletter-col p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .footer-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .newsletter-input-wrap {
+            position: relative;
+        }
+        .footer-form input {
+            width: 100%;
+            background: #131d31;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            color: #ffffff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .footer-form input:focus {
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+        }
+        .footer-form input.input-error {
+            border-color: #EF4444;
+        }
+        .footer-form input.input-error::placeholder {
+            color: #EF4444;
+            opacity: 1;
+        }
+        .footer-form button {
+            padding: 0.65rem 1.25rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            background: #d4af37;
+            color: #0b1120;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.25rem;
+        }
+        .footer-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .banking-col-desc {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        .banking-badges-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 1.25rem;
+        }
+        .bank-badge {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        .bank-badge i {
+            color: #d4af37;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .bank-badge div {
+            display: flex;
+            flex-direction: column;
+        }
+        .bank-name {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.2px;
+        }
+        .bank-sub {
+            font-size: 0.68rem;
+            color: #94a3b8;
+        }
+        .bank-badge:hover {
+            transform: translateY(-2px);
+        }
+        .bank-badge:hover .bank-name {
+            color: #d4af37;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 2rem;
+            margin-top: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+        .footer-bottom-links {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        .footer-bottom-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-bottom-links a:hover {
+            color: #ffffff;
+        }
+
+        @media (max-width: 968px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2.5rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <!-- JAVASCRIPT FOR FOOTER SUBSCRIPTION & SCROLL HANDLING -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const subBtn = document.getElementById('newsletter-sub-btn');
+            const emailInput = document.getElementById('newsletter-email');
+
+            // Handle newsletter validation and redirect
+            if (subBtn && emailInput) {
+                subBtn.addEventListener('click', () => {
+                    const val = emailInput.value.trim().toLowerCase();
+
+                    if (!val) {
+                        emailInput.value = '';
+                        emailInput.placeholder = "Please fill out this field";
+                        emailInput.classList.add('input-error');
+                        return;
+                    }
+
+                    if (!val.endsWith('@gmail.com')) {
+                        emailInput.value = '';
+                        emailInput.placeholder = "Please enter a valid @gmail.com address";
+                        emailInput.classList.add('input-error');
+                        return;
+                    }
+
+                    window.location.href = './404.html';
+                });
+
+                emailInput.addEventListener('input', () => {
+                    emailInput.classList.remove('input-error');
+                    emailInput.placeholder = "username@gmail.com";
+                });
+            }
+
+            // Automatically scroll back down to the footer if coming from the 404 page
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('scroll') === 'footer-section') {
+                const footerTarget = document.getElementById('footer-section');
+                if (footerTarget) {
+                    setTimeout(() => {
+                        footerTarget.scrollIntoView({ behavior: 'smooth' });
+                    }, 150);
+                }
+            }
+        });
+    </script>
+
+    <!-- JavaScript for Slideshow & Mobile Nav -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Interactive Loan Slideshow Carousel Logic
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentSlide = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+
+                currentSlide = (index + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                resetTimer();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                resetTimer();
+            });
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.getAttribute('data-index'));
+                    showSlide(index);
+                    resetTimer();
+                });
+            });
+
+            function startTimer() {
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+
+            function resetTimer() {
+                clearInterval(slideInterval);
+                startTimer();
+            }
+
+            startTimer();
+        });
+    </script>
+</body>
+</html>
